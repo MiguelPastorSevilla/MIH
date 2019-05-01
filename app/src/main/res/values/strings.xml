@@ -3,4 +3,6 @@
     <string name="email">Correo</string>
     <string name="password">Contraseña</string>
     <string name="Login">Acceder</string>
+    <string name="recordar_cuenta">Recordar cuenta</string>
+    <string name="error_invalidEmail">Correo electrónico no válido.</string>
 </resources>
