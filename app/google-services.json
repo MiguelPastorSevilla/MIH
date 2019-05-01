@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "491747364848",
+    "firebase_url": "https://motionishealth.firebaseio.com",
+    "project_id": "motionishealth",
+    "storage_bucket": "motionishealth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491747364848:android:83ff1e78e31e28ee",
+        "android_client_info": {
+          "package_name": "com.motionishealth.application.training.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491747364848-26j11mlu3qa705b13hc68r7m2gccehh1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.motionishealth.application.training.android",
+            "certificate_hash": "1ccf14a14beef40d19b262c51d5561802e382bc2"
+          }
+        },
+        {
+          "client_id": "491747364848-i5ien1v0i9akrv0v4v7vj1i9lq24vhqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfglpsYlUWB9eVZNAvuqGvMDe4aH1jdfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491747364848-i5ien1v0i9akrv0v4v7vj1i9lq24vhqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
