@@ -1,4 +1,4 @@
-package com.motionishealth.application.training.android;
+package com.motionishealth.application.training.android.Login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.motionishealth.application.training.android.R;
 
 public class LoginActivity extends AppCompatActivity {
     //Log TAG
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout tilEmail;
     private TextInputLayout tilPassword;
     private Button btLogin;
+    private Button btLoginRegister;
     private CheckBox cbRememberAccount;
     //Preferencias.
     private SharedPreferences preferences;
@@ -45,11 +47,13 @@ public class LoginActivity extends AppCompatActivity {
         tilEmail = findViewById(R.id.tilEmail);
         tilPassword = findViewById(R.id.tilPassword);
         btLogin = findViewById(R.id.btLogin);
+        btLoginRegister = findViewById(R.id.btLoginRegister);
         cbRememberAccount = findViewById(R.id.cbRememberAccount);
         //Inicialización de Firebase
         authentificator = FirebaseAuth.getInstance();
         //Inicialización de referencias.
         preferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
+        //Acción del botón de login
         btLogin.setOnClickListener(new View.OnClickListener() {
             /**
              * Click listener para comprobar si el email es válido
@@ -63,7 +67,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        //Acción del botón de registro
+        btLoginRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startRegister();
+            }
+        });
         tryGetEmailFromPreferences();
+    }
+
+    private void startRegister() {
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -120,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }else{
             Log.w(TAG,"Correo no válido");
-            tilEmail.setError(getResources().getString(R.string.error_invalidEmail));
+            tilEmail.setError(getResources().getString(R.string.login_error_invalidEmail));
             return false;
         }
     }

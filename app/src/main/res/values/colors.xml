@@ -6,6 +6,7 @@
     <color name="colorLoginBackground">#9BDBFD</color>
     <color name="colorLoginBackgroundEnd">#FFFFFF</color>
     <color name="colorLoginButton">#3CB4FF</color>
+    <color name="colorLoginButtonPressed">#3C6DFF</color>
     <color name="colorLoginStroke">#03A9F4</color>
 
 
