@@ -5,8 +5,11 @@
     <string name="login_login">Acceder</string>
     <string name="login_rememberAccount">Recordar cuenta</string>
     <string name="login_error_invalidEmail">Correo electrónico no válido.</string>
+    <string name="login_error_invalidPassword">Contraseña no válida. Tienen que coincidir y tener un tamaño mayor de 6 caracteres</string>
     <string name="login_register">Registro</string>
     <string name="login_repeatPassword">Repite la contraseña</string>
     <string name="login_creatingAccount">Se está creando su cuenta...</string>
+    <string name="login_creatingAccountCompleted">Cuenta creada con éxito</string>
     <string name="login_error_registerError">Error al crear el registro</string>
+    <string name="login_error_loginError">Error al logear el usuario. Compruebe su email y contraseña</string>
 </resources>

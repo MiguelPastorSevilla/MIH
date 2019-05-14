@@ -45,7 +45,7 @@
         app:layout_constraintGuide_percent="0.4" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilEmail"
+        android:id="@+id/tilEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -67,7 +67,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilPassword"
+        android:id="@+id/tilPasswordLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -103,7 +103,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVert2"
         app:layout_constraintStart_toStartOf="@+id/guidelineVert1"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tilPasswordLogin" />
 
     <Button
         android:id="@+id/btLoginRegister"
@@ -148,20 +148,36 @@
         app:layout_constraintBottom_toTopOf="@+id/btLogin"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVert2"
         app:layout_constraintStart_toStartOf="@+id/guidelineVert1"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tilPasswordLogin" />
 
     <ImageView
-        android:id="@+id/ivImagenLogo"
+        android:id="@+id/ivLoginLogo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/tilEmail"
+        app:layout_constraintBottom_toTopOf="@+id/tilEmailLogin"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVert2"
         app:layout_constraintStart_toStartOf="@+id/guidelineVert1"
         app:layout_constraintTop_toTopOf="@+id/guidelineTop"
         app:srcCompat="@drawable/iconoprovisional" />
+
+    <TextView
+        android:id="@+id/tvLoginError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:text="@string/login_error_loginError"
+        app:layout_constraintBottom_toTopOf="@+id/btLoginRegister"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
 
 </android.support.constraint.ConstraintLayout>
