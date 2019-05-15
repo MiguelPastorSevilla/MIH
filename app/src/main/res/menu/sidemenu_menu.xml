@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/optSideMenuRoutines"
+            android:title="@string/sideMenu_options_routines"/>
+        <item
+            android:id="@+id/optSideMenuNutrition"
+            android:title="@string/sideMenu_options_nutrition"/>
+        <item
+            android:id="@+id/optSideMenuSettings"
+            android:title="@string/sideMenu_options_settings"/>
+    </group>
+</menu>
