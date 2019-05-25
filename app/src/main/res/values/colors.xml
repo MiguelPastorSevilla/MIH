@@ -9,6 +9,7 @@
     <color name="colorLoginButtonPressed">#3C6DFF</color>
     <color name="colorLoginStroke">#03A9F4</color>
     <color name="colorSideMenuHeader">#6AE7E6E6</color>
+    <color name="colorItemWorkoutMasterBorder">#004B91</color>
 
 
 </resources>
