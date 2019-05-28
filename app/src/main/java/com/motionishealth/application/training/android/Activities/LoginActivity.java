@@ -1,4 +1,4 @@
-package com.motionishealth.application.training.android.Login;
+package com.motionishealth.application.training.android.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,7 +19,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.motionishealth.application.training.android.Activities.MainActivity;
 import com.motionishealth.application.training.android.R;
 
 
@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLoginRegister;
     private CheckBox cbRememberAccount;
     private TextView tvLoginError;
+    private ProgressBar pbLoginLoading;
     //Preferencias.
     private SharedPreferences preferences;
 
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         btLoginRegister = findViewById(R.id.btLoginRegister);
         cbRememberAccount = findViewById(R.id.cbRememberAccount);
         tvLoginError = findViewById(R.id.tvLoginError);
+        pbLoginLoading = findViewById(R.id.pbLoginLoading);
         //Inicialización de Firebase
         auth = FirebaseAuth.getInstance();
         //Inicialización de referencias.
@@ -118,22 +120,25 @@ public class LoginActivity extends AppCompatActivity {
         String email = tilEmail.getEditText().getText().toString();
         String password = tilPassword.getEditText().getText().toString();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Log.w(TAG,"Email o contraseña vacio");
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Log.w(TAG, "Email o contraseña vacio");
             return;
         }
+        tvLoginError.setVisibility(View.INVISIBLE);
+        pbLoginLoading.setVisibility(View.VISIBLE);
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            tvLoginError.setVisibility(View.GONE);
+                            pbLoginLoading.setVisibility(View.INVISIBLE);
                             actualizaPreferencias();
                             Log.i(TAG, "Login completado");
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
                             Log.w(TAG, "Login fallido");
+                            pbLoginLoading.setVisibility(View.INVISIBLE);
                             tvLoginError.setVisibility(View.VISIBLE);
                         }
                     }
@@ -141,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void actualizaPreferencias(){
+    private void actualizaPreferencias() {
         //Cambio de las preferencias en funcion del checkBox.
         SharedPreferences.Editor editor = preferences.edit();
         if (cbRememberAccount.isChecked()) {
@@ -165,10 +170,8 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
             Log.i(TAG, "Usuario logeado");
-            /*
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            */
         } else {
             Log.i(TAG, "Usuario NO logeado");
         }

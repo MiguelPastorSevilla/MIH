@@ -2,13 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/optSideMenuHome"
+            android:icon="@drawable/ic_sidemenu_home"
+            android:title="@string/sideMenu_options_home" />
+        <item
             android:id="@+id/optSideMenuRoutines"
-            android:title="@string/sideMenu_options_routines"/>
+            android:icon="@drawable/ic_sidemenu_workouts"
+            android:title="@string/sideMenu_options_routines" />
         <item
-            android:id="@+id/optSideMenuNutrition"
-            android:title="@string/sideMenu_options_nutrition"/>
-        <item
-            android:id="@+id/optSideMenuSettings"
-            android:title="@string/sideMenu_options_settings"/>
+            android:id="@+id/optSideMenuLogout"
+            android:icon="@drawable/ic_sidemenu_logout"
+            android:title="@string/sideMenu_options_logout" />
     </group>
 </menu>

@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.motionishealth.application.training.android.POJOs.Workout;
 import com.motionishealth.application.training.android.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class WorkoutAdapter extends BaseAdapter {
@@ -46,19 +44,19 @@ public class WorkoutAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null){
-            view = LayoutInflater.from(this.context).inflate(R.layout.item_workout_master,viewGroup,false);
+        if (view == null) {
+            view = LayoutInflater.from(this.context).inflate(R.layout.item_workout_master, viewGroup, false);
         }
 
-        Workout currentWorkout = (Workout)getItem(i);
+        Workout currentWorkout = (Workout) getItem(i);
 
         TextView tvName = view.findViewById(R.id.tvItemWorkoutMasterName);
         TextView tvET = view.findViewById(R.id.tvItemWorkoutMasterET);
         TextView tvExerciseCount = view.findViewById(R.id.tvItemWorkoutMasterExerciseNumber);
 
-        tvName.setText("Nombre: "+currentWorkout.getName());
-        tvET.setText("Tiempo aprox: "+currentWorkout.getEstimatedTimeInMinutes()+"'");
-        tvExerciseCount.setText("Número de ejercicios: "+currentWorkout.getExercises().size());
+        tvName.setText("Nombre: " + currentWorkout.getName());
+        tvET.setText("Tiempo aprox: " + currentWorkout.getEstimatedTimeInMinutes() + "'");
+        tvExerciseCount.setText("Número de ejercicios: " + currentWorkout.getExercises().size());
 
         return view;
     }

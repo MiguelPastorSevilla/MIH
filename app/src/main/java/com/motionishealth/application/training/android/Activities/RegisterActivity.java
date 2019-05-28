@@ -1,4 +1,4 @@
-package com.motionishealth.application.training.android.Login;
+package com.motionishealth.application.training.android.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.motionishealth.application.training.android.Activities.MainActivity;
 import com.motionishealth.application.training.android.R;
 
 import static com.motionishealth.application.training.android.Utils.Utils.checkEmail;
@@ -68,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void tryRegister() {
         //Recuperación de datos
-        Log.i(TAG,"Recuperando datos de los editText");
+        Log.i(TAG, "Recuperando datos de los editText");
         email = tilEmail.getEditText().getText().toString();
         password = tilPassword.getEditText().getText().toString();
         repeatedPassword = tilPasswordRepeat.getEditText().getText().toString();
@@ -95,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     launchMainActivity(email, password);
                                 } else {
                                     //Si no se crea usuario, mostramos error.
-                                    Log.w(TAG,"Error en el registro");
+                                    Log.w(TAG, "Error en el registro");
                                     tvAccountCreation.setTextColor(Color.RED);
                                     tvAccountCreation.setText(getResources().getString(R.string.login_error_registerError));
                                 }
@@ -116,7 +115,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Método para lanzar la actividad principal una vez se logee un usuario con email y contraseña.
-     * @param email email de login
+     *
+     * @param email    email de login
      * @param password password de login
      */
     private void launchMainActivity(String email, String password) {

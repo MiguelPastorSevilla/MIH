@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    tools:context=".Login.LoginActivity">
-
+    tools:context=".Activities.LoginActivity">
 
 
     <android.support.constraint.Guideline
@@ -172,12 +171,30 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:textColor="@android:color/holo_red_dark"
         android:text="@string/login_error_loginError"
-        app:layout_constraintBottom_toTopOf="@+id/btLoginRegister"
+        android:textColor="@android:color/holo_red_dark"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btLoginRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLogin" />
+
+
+    <ProgressBar
+        android:id="@+id/pbLoginLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btLoginRegister"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVert2"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVert1"
         app:layout_constraintTop_toBottomOf="@+id/btLogin" />
 
 </android.support.constraint.ConstraintLayout>

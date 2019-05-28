@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MotionIsHealth</string>
+    <string name="app_name">Motion Is Health</string>
     <string name="login_email">Correo</string>
     <string name="login_password">Contraseña</string>
     <string name="login_login">Acceder</string>
@@ -12,9 +12,9 @@
     <string name="login_creatingAccountCompleted">Cuenta creada con éxito</string>
     <string name="login_error_registerError">Error al crear el registro</string>
     <string name="login_error_loginError">Error al logear el usuario. Compruebe su email y contraseña</string>
+    <string name="sideMenu_options_home">Principal</string>
     <string name="sideMenu_options_routines">Rutinas</string>
-    <string name="sideMenu_options_nutrition">Nutrición</string>
-    <string name="sideMenu_options_settings">Ajustes</string>
+    <string name="sideMenu_options_logout">Cerrar sesión</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
