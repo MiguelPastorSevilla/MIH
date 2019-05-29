@@ -1,6 +1,7 @@
 package com.motionishealth.application.training.android.Adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,10 +51,18 @@ public class WorkoutAdapter extends BaseAdapter {
 
         Workout currentWorkout = (Workout) getItem(i);
 
+        ConstraintLayout clItemWorkoutParent = view.findViewById(R.id.clItemWorkoutParent);
         TextView tvName = view.findViewById(R.id.tvItemWorkoutMasterName);
         TextView tvET = view.findViewById(R.id.tvItemWorkoutMasterET);
         TextView tvExerciseCount = view.findViewById(R.id.tvItemWorkoutMasterExerciseNumber);
 
+        if (currentWorkout.getDifficulty() >= 0 && currentWorkout.getDifficulty()<4){
+            clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_easy));
+        }else if (currentWorkout.getDifficulty() >= 4 && currentWorkout.getDifficulty()< 7){
+            clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_medium));
+        }else{
+            clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_hard));
+        }
         tvName.setText("Nombre: " + currentWorkout.getName());
         tvET.setText("Tiempo aprox: " + currentWorkout.getEstimatedTimeInMinutes() + "'");
         tvExerciseCount.setText("Número de ejercicios: " + currentWorkout.getExercises().size());

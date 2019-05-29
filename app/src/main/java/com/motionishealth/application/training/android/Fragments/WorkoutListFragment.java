@@ -57,7 +57,7 @@ public class WorkoutListFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_workout_list, container, false);
         lvWorkoutList = v.findViewById(R.id.lvWorkoutList);
         pbLoadingMainList = v.findViewById(R.id.pbLoadingMainList);
-        workoutViewModel.getWorkoutList().observe(this, new Observer<List<Workout>>() {
+        workoutViewModel.getWorkoutList().observe(getActivity(), new Observer<List<Workout>>() {
             @Override
             public void onChanged(@Nullable List<Workout> workouts) {
                 pbLoadingMainList.setVisibility(View.GONE);
@@ -66,6 +66,8 @@ public class WorkoutListFragment extends Fragment {
                 Log.i(TAG, "Lista actualizada, progress bar quitada.");
             }
         });
+
+
         return v;
     }
 

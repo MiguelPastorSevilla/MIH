@@ -10,6 +10,9 @@
     <color name="colorLoginStroke">#03A9F4</color>
     <color name="colorSideMenuHeader">#6AE7E6E6</color>
     <color name="colorItemWorkoutMasterBorder">#004B91</color>
+    <color name="colorItemWorkoutMasterEasy">#91DA82</color>
+    <color name="colorItemWorkoutMasterMedium">#FAEE93</color>
+    <color name="colorItemWorkoutMasterHard">#FF7577</color>
 
 
 </resources>

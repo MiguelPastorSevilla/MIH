@@ -3,6 +3,7 @@ package com.motionishealth.application.training.android.Activities;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "MainActivity";
     private final static String FIRST_ACTIVITY_CREATION = "com.motionishealth.application.training.android.FIRSTACTIVITYCREATION";
+    private final static String CURRENT_TITLE = "com.motionishealth.application.training.android.CURRENTTITLE";
 
     private TextView tvSideMenuHeaderUserEmail;
     private FrameLayout flFragmentContainer;
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private Toolbar appActionBar;
+
+    private Fragment currentFragment;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.optSideMenuHome:
                         callHomeFragment();
+                        changeTitle();
                         break;
                     case R.id.optSideMenuRoutines:
                         callWorkoutListFragment();
+                        changeTitle();
                         break;
                     case R.id.optSideMenuLogout:
                         Log.i(TAG, "Cerrando sesión y volviendo a la pantalla de inicio");
@@ -81,17 +88,25 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         if (savedInstanceState == null) {
             nvSideMenu.getMenu().getItem(0).setChecked(true);
             callHomeFragment();
+            changeTitle();
         }
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putBoolean(FIRST_ACTIVITY_CREATION, false);
-        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(CURRENT_TITLE, title);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        title = savedInstanceState.getString(CURRENT_TITLE);
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -115,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         WorkoutListFragment workoutListFragment = new WorkoutListFragment();
         workoutListFragment.setUser(this.user);
+        currentFragment = workoutListFragment;
         fragmentTransaction.replace(R.id.flFragmentContainer, workoutListFragment, WorkoutListFragment.WORKOUT_FRAGMENT_TAG);
         fragmentTransaction.commit();
     }
@@ -123,8 +139,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         HomeFragment homeFragment = new HomeFragment();
+        currentFragment = homeFragment;
         fragmentTransaction.replace(R.id.flFragmentContainer, homeFragment, HomeFragment.HOME_FRAGMENT_TAG);
         fragmentTransaction.commit();
+    }
+
+    private void changeTitle(){
+        if (currentFragment instanceof  WorkoutListFragment){
+            getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_routines));
+            title = getSupportActionBar().getTitle().toString();
+        }else if (currentFragment instanceof  HomeFragment){
+            getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_home));
+            title = getSupportActionBar().getTitle().toString();
+        }
     }
 
     @Override
