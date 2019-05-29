@@ -15,9 +15,18 @@ public class WorkoutViewModel extends ViewModel {
     private final static String TAG = "ViewModel";
 
     private MutableLiveData<List<Workout>> workoutList = new MutableLiveData<>();
+    private MutableLiveData<Workout> selectedWorkout = new MutableLiveData<>();
 
     public MutableLiveData<List<Workout>> getWorkoutList() {
         return workoutList;
+    }
+
+    public MutableLiveData<Workout> getSelectedWorkout() {
+        return selectedWorkout;
+    }
+
+    public void setSelectedWorkout(Workout selectedWorkout) {
+        this.selectedWorkout.setValue(selectedWorkout);
     }
 
     public void getWorkoutsFromFirebaseUser(String uid) {

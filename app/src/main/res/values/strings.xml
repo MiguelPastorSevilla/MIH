@@ -15,6 +15,12 @@
     <string name="sideMenu_options_home">Principal</string>
     <string name="sideMenu_options_routines">Rutinas</string>
     <string name="sideMenu_options_logout">Cerrar sesión</string>
+    <string name="fragments_titles_details">Detalles de rutina</string>
+    <string name="fragments_details_exerciseNameHeader">Ejercicio</string>
+    <string name="fragments_details_exerciseRepsHeader">Repeticiones</string>
+    <string name="fragments_details_exerciseSetsHeader">Series</string>
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

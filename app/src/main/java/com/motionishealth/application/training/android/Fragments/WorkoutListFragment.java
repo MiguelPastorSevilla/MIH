@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -45,7 +46,7 @@ public class WorkoutListFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel.class);
+        workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
         workoutViewModel.getWorkoutsFromFirebaseUser(user.getUid());
         setRetainInstance(true);
         super.onCreate(savedInstanceState);
@@ -56,8 +57,15 @@ public class WorkoutListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_workout_list, container, false);
         lvWorkoutList = v.findViewById(R.id.lvWorkoutList);
+        lvWorkoutList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Workout selected = (Workout)lvWorkoutList.getAdapter().getItem(pos);
+                workoutViewModel.setSelectedWorkout(selected);
+            }
+        });
         pbLoadingMainList = v.findViewById(R.id.pbLoadingMainList);
-        workoutViewModel.getWorkoutList().observe(getActivity(), new Observer<List<Workout>>() {
+        workoutViewModel.getWorkoutList().observe(this, new Observer<List<Workout>>() {
             @Override
             public void onChanged(@Nullable List<Workout> workouts) {
                 pbLoadingMainList.setVisibility(View.GONE);

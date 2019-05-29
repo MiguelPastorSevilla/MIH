@@ -1,7 +1,10 @@
 package com.motionishealth.application.training.android.Activities;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,11 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.motionishealth.application.training.android.DataManagement.WorkoutViewModel;
 import com.motionishealth.application.training.android.Fragments.HomeFragment;
+import com.motionishealth.application.training.android.Fragments.WorkoutDetailFragment;
 import com.motionishealth.application.training.android.Fragments.WorkoutListFragment;
+import com.motionishealth.application.training.android.POJOs.Workout;
 import com.motionishealth.application.training.android.R;
 
 
@@ -37,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private Toolbar appActionBar;
+    private WorkoutViewModel workoutViewModel;
 
     private Fragment currentFragment;
     private String title;
@@ -93,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
             callHomeFragment();
             changeTitle();
         }
+
+        workoutViewModel =  ViewModelProviders.of(this).get(WorkoutViewModel.class);
+        workoutViewModel.getSelectedWorkout().observe(this, new Observer<Workout>() {
+            @Override
+            public void onChanged(@Nullable Workout workout) {
+                if (workout != null){
+                    callWorkoutDetailFragment();
+                    changeTitle();
+                }
+            }
+        });
     }
 
     @Override
@@ -144,6 +163,16 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void callWorkoutDetailFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        WorkoutDetailFragment detailFragment = new WorkoutDetailFragment();
+        currentFragment = detailFragment;
+        fragmentTransaction.replace(R.id.flFragmentContainer, detailFragment, WorkoutDetailFragment.WORKOUT_DETAIL_FRAGMENT_TAG);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     private void changeTitle(){
         if (currentFragment instanceof  WorkoutListFragment){
             getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_routines));
@@ -151,11 +180,22 @@ public class MainActivity extends AppCompatActivity {
         }else if (currentFragment instanceof  HomeFragment){
             getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_home));
             title = getSupportActionBar().getTitle().toString();
+        }else if (currentFragment instanceof  WorkoutDetailFragment){
+            getSupportActionBar().setTitle(getResources().getString(R.string.fragments_titles_details));
+            title = getSupportActionBar().getTitle().toString();
         }
     }
 
     @Override
     public void onBackPressed() {
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount()>0){
+            workoutViewModel.setSelectedWorkout(null);
+            for(int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                fragmentManager.popBackStack();
+            }
+            currentFragment = fragmentManager.findFragmentByTag(WorkoutListFragment.WORKOUT_FRAGMENT_TAG);
+            changeTitle();
+        }
     }
 }

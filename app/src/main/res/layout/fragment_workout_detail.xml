@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/svFragmentWorkoutDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.WorkoutDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/lyFragmentWorkoutDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvItemWorkoutDetailName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="6dp"
+            tools:text="Nombre: Rutina guay" />
+
+        <TextView
+            android:id="@+id/tvItemWorkoutDetailDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="6dp"
+            tools:text="Descripción: Rutina guay que mola mucho" />
+
+        <TextView
+            android:id="@+id/tvItemWorkoutDetailET"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="6dp"
+            tools:text="Tiempo estimado: 45'" />
+
+        <LinearLayout
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:id="@+id/tvItemExerciseNameHeader"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/fragments_details_exerciseNameHeader"/>
+            <TextView
+                android:id="@+id/tvItemExerciseRepsHeader"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/fragments_details_exerciseRepsHeader"/>
+            <TextView
+                android:id="@+id/tvItemExerciseSetsHeader"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:text="@string/fragments_details_exerciseSetsHeader"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</ScrollView>
