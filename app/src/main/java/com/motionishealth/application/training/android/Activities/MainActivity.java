@@ -78,10 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.optSideMenuHome:
                         callHomeFragment();
+                        workoutViewModel.setSelectedWorkout(null);
                         changeTitle();
                         break;
                     case R.id.optSideMenuRoutines:
                         callWorkoutListFragment();
+                        workoutViewModel.setSelectedWorkout(null);
                         changeTitle();
                         break;
                     case R.id.optSideMenuLogout:
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             changeTitle();
         }
 
-        workoutViewModel =  ViewModelProviders.of(this).get(WorkoutViewModel.class);
+        workoutViewModel = ViewModelProviders.of(this).get(WorkoutViewModel.class);
         workoutViewModel.getSelectedWorkout().observe(this, new Observer<Workout>() {
             @Override
             public void onChanged(@Nullable Workout workout) {
@@ -189,13 +191,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount()>0){
+        if (fragmentManager.getBackStackEntryCount()>0 && currentFragment instanceof WorkoutDetailFragment){
             workoutViewModel.setSelectedWorkout(null);
-            for(int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-                fragmentManager.popBackStack();
-            }
+            emptyFragmentBackStack();
             currentFragment = fragmentManager.findFragmentByTag(WorkoutListFragment.WORKOUT_FRAGMENT_TAG);
             changeTitle();
+        }
+    }
+
+    private void emptyFragmentBackStack(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
         }
     }
 }
