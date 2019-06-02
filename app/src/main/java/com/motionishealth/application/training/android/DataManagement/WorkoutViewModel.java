@@ -16,6 +16,7 @@ public class WorkoutViewModel extends ViewModel {
 
     private MutableLiveData<List<Workout>> workoutList = new MutableLiveData<>();
     private MutableLiveData<Workout> selectedWorkout = new MutableLiveData<>();
+    private MutableLiveData<Workout> createEditWorkout = new MutableLiveData<>();
 
     public MutableLiveData<List<Workout>> getWorkoutList() {
         return workoutList;
@@ -27,6 +28,10 @@ public class WorkoutViewModel extends ViewModel {
 
     public void setSelectedWorkout(Workout selectedWorkout) {
         this.selectedWorkout.setValue(selectedWorkout);
+    }
+
+    public MutableLiveData<Workout> getCreateEditWorkout() {
+        return createEditWorkout;
     }
 
     public void getWorkoutsFromFirebaseUser(String uid) {

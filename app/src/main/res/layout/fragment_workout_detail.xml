@@ -63,8 +63,7 @@
                 android:textAlignment="center"
                 android:text="@string/fragments_details_exerciseSetsHeader"/>
         </LinearLayout>
+
     </LinearLayout>
-
-
 
 </ScrollView>

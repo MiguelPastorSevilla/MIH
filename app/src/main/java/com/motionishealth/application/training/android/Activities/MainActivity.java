@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.motionishealth.application.training.android.DataManagement.WorkoutViewModel;
+import com.motionishealth.application.training.android.Fragments.CreateEditWorkoutFragment;
 import com.motionishealth.application.training.android.Fragments.HomeFragment;
 import com.motionishealth.application.training.android.Fragments.WorkoutDetailFragment;
 import com.motionishealth.application.training.android.Fragments.WorkoutListFragment;
@@ -114,6 +115,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        workoutViewModel.getCreateEditWorkout().observe(this, new Observer<Workout>() {
+            @Override
+            public void onChanged(@Nullable Workout workout) {
+                if (workout!=null){
+                    callCreateEditFragment();
+                    changeTitle();
+                }
+            }
+        });
     }
 
     @Override
@@ -175,6 +186,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void callCreateEditFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        CreateEditWorkoutFragment createEditWorkoutFragment = new CreateEditWorkoutFragment();
+        currentFragment = createEditWorkoutFragment;
+        fragmentTransaction.replace(R.id.flFragmentContainer, createEditWorkoutFragment, CreateEditWorkoutFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
     private void changeTitle(){
         if (currentFragment instanceof  WorkoutListFragment){
             getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_routines));
@@ -184,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
             title = getSupportActionBar().getTitle().toString();
         }else if (currentFragment instanceof  WorkoutDetailFragment){
             getSupportActionBar().setTitle(getResources().getString(R.string.fragments_titles_details));
+            title = getSupportActionBar().getTitle().toString();
+        }else if (currentFragment instanceof CreateEditWorkoutFragment){
+            getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
             title = getSupportActionBar().getTitle().toString();
         }
     }

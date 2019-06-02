@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,9 @@ public class WorkoutListFragment extends Fragment {
     private ListView lvWorkoutList;
     private WorkoutViewModel workoutViewModel;
     private ProgressBar pbLoadingMainList;
+    private FloatingActionButton fbAddWorkout;
     private FirebaseUser user;
+
 
 
     public WorkoutListFragment() {
@@ -72,6 +75,13 @@ public class WorkoutListFragment extends Fragment {
                 WorkoutAdapter adapter = new WorkoutAdapter(getContext(), workoutViewModel.getWorkoutList().getValue());
                 lvWorkoutList.setAdapter(adapter);
                 Log.i(TAG, "Lista actualizada, progress bar quitada.");
+            }
+        });
+        fbAddWorkout = v.findViewById(R.id.fbAddWorkout);
+        fbAddWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                workoutViewModel.getCreateEditWorkout().setValue(new Workout());
             }
         });
 
