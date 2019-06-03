@@ -1,202 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/svCreateEditWorkoutFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.CreateEditWorkoutFragment"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:weightSum="2">
 
-    <LinearLayout
-        android:id="@+id/lyFragmentWorkoutCreateEdit"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/lyFragmentWorkoutCreateEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvItemWorkoutNameCreateEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="6dp"
-                android:text="@string/fragments_create_edit_name"
-                android:gravity="center"/>
+            android:layout_margin="6dp"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etItemWorkoutNameCreateEdit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"/>
-        </LinearLayout>
+                android:orientation="horizontal">
 
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvItemWorkoutNameCreateEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="6dp"
+                    android:gravity="center"
+                    android:text="@string/fragments_create_edit_name" />
 
-        <TextView
-            android:id="@+id/tvItemWorkoutDescriptionCreateEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="6dp"
-            android:text="@string/fragments_create_edit_description"
-            android:gravity="bottom"/>
-        <EditText
-            android:padding="2dp"
-            android:id="@+id/etItemWorkoutDescriptionCreateEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:background="@drawable/item_generic_border"
-            android:lines="3"/>
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/etItemWorkoutNameCreateEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@id/etItemWorkoutDescriptionCreateEdit"
+                    android:hint="@string/fragments_create_edit_name"/>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="6dp">
-
-            <TextView
-                android:id="@+id/tvItemWorkoutETCreateEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="6dp"
-                android:text="@string/fragments_create_edit_et"
-                android:gravity="center"/>
-
-            <EditText
-                android:id="@+id/etItemWorkoutETCreateEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="4dp">
-
-            <TextView
-                android:id="@+id/tvItemWorkoutDifficultyCreateEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="6dp"
-                android:text="@string/fragments_create_edit_difficulty"/>
-
-            <RadioGroup
-                android:id="@+id/rgItemWorkoutDifficulty"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvItemWorkoutDescriptionCreateEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="6dp"
+                    android:gravity="bottom"
+                    android:text="@string/fragments_create_edit_description" />
+
+                <EditText
+                    android:id="@+id/etItemWorkoutDescriptionCreateEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_generic_border"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:padding="3dp"
+                    android:hint="@string/fragments_create_edit_description"
+                    android:nextFocusForward="@id/etItemWorkoutETCreateEdit"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvItemWorkoutETCreateEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="6dp"
+                    android:gravity="center"
+                    android:text="@string/fragments_create_edit_et" />
+
+                <EditText
+                    android:id="@+id/etItemWorkoutETCreateEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <TextView
+                    android:id="@+id/tvItemWorkoutDifficultyCreateEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="6dp"
+                    android:text="@string/fragments_create_edit_difficulty" />
+
+                <RadioGroup
+                    android:id="@+id/rgItemWorkoutDifficulty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        android:id="@+id/rbItemWorkoutDifficultyEasy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/fragments_create_edit_difficulty_easy" />
+
+                    <RadioButton
+                        android:id="@+id/rbItemWorkoutDifficultyMedium"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/fragments_create_edit_difficulty_medium" />
+
+                    <RadioButton
+                        android:id="@+id/rbItemWorkoutDifficultyHard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/fragments_create_edit_difficulty_hard" />
+
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/item_generic_border"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:padding="6dp"
+                android:weightSum="7">
 
-                <RadioButton
-                    android:id="@+id/rbItemWorkoutDifficultyEasy"
+                <TextView
+                    android:id="@+id/tvItemExerciseNameHeaderCreateEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="@string/fragments_details_exerciseNameHeader"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/tvItemExerciseRepsHeaderCreateEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="@string/fragments_details_exerciseRepsHeader"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/tvItemExerciseSetsHeaderCreateEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="@string/fragments_details_exerciseSetsHeader"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyWorkoutExercises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:weightSum="7">
+
+                <EditText
+                    android:id="@+id/etItemExerciseNameCreateEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/fragments_create_edit_difficulty_easy"/>
+                    android:layout_weight="2"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:maxLines="3"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@id/etItemExerciseRepsCreateEdit"/>
 
-                <RadioButton
-                    android:id="@+id/rbItemWorkoutDifficultyMedium"
+                <EditText
+                    android:id="@+id/etItemExerciseRepsCreateEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/fragments_create_edit_difficulty_medium"/>
+                    android:layout_weight="2"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@id/etItemExerciseSetsCreateEdit"/>
 
-                <RadioButton
-                    android:id="@+id/rbItemWorkoutDifficultyHard"
+                <EditText
+                    android:id="@+id/etItemExerciseSetsCreateEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/fragments_create_edit_difficulty_hard"/>
+                    android:layout_weight="2"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:imeOptions="actionDone"/>
 
-            </RadioGroup>
+                <ImageButton
+                    android:id="@+id/btItemExerciseAddExercise"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_add_exercise" />
+            </LinearLayout>
 
 
         </LinearLayout>
 
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/lvExerciseCreationList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_workout_create_edit_exercise"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp">
+    </ListView>
 
 
-        <LinearLayout
-            android:layout_marginTop="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7"
-            android:background="@drawable/item_generic_border"
-            android:padding="6dp">
-
-            <TextView
-                android:id="@+id/tvItemExerciseNameHeaderCreateEdit"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
-                android:text="@string/fragments_details_exerciseNameHeader"/>
-            <TextView
-                android:id="@+id/tvItemExerciseRepsHeaderCreateEdit"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
-                android:text="@string/fragments_details_exerciseRepsHeader"/>
-            <TextView
-                android:id="@+id/tvItemExerciseSetsHeaderCreateEdit"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:textAlignment="center"
-                android:text="@string/fragments_details_exerciseSetsHeader"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="7">
-
-            <EditText
-                android:id="@+id/etItemExerciseNameCreateEdit"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"/>
-            <EditText
-                android:id="@+id/tvItemExerciseRepsCreateEdit"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:inputType="number"/>
-            <EditText
-                android:id="@+id/tvItemExerciseSetsCreateEdit"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:inputType="number"/>
-            <ImageButton
-                android:id="@+id/btItemExerciseAddExercise"
-                android:src="@drawable/ic_add_exercise"
-                android:background="@android:color/transparent"
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>
