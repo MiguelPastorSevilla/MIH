@@ -1,6 +1,7 @@
 package com.motionishealth.application.training.android.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,12 @@ import java.util.List;
 
 public class ExerciseCreationAdapter extends BaseAdapter {
 
-    private Context context;
-    private List<Exercise> exercises;
+    private static final String TAG = "ExerciseCreationAdapter";
 
-    public ExerciseCreationAdapter(Context context, List<Exercise> exercises) {
+    private Context context;
+    private ArrayList<Exercise> exercises;
+
+    public ExerciseCreationAdapter(Context context, ArrayList<Exercise> exercises) {
         this.context = context;
         this.exercises = exercises;
     }
@@ -50,32 +53,29 @@ public class ExerciseCreationAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view == null)
-        {
-            view = LayoutInflater.from(this.context).inflate(R.layout.item_workout_create_edit_exercise,viewGroup,false);
 
-            Exercise currentExercise = (Exercise)getItem(i);
-            final int posicion = i;
+        View v = LayoutInflater.from(this.context).inflate(R.layout.item_workout_create_edit_exercise,viewGroup,false);
 
-            TextView tvItemExerciseNameCreateEdit = view.findViewById(R.id.tvItemExerciseNameCreateEdit);
-            TextView tvItemExerciseRepsCreateEdit = view.findViewById(R.id.tvItemExerciseRepsCreateEdit);
-            TextView tvItemExerciseSetsCreateEdit = view.findViewById(R.id.tvItemExerciseSetsCreateEdit);
-            ImageButton btItemExerciseAddExercise = view.findViewById(R.id.btItemExerciseCancelExercise);
+        Exercise currentExercise = (Exercise)getItem(i);
+        Log.i(TAG,currentExercise.getName()+" - "+i);
+        final int position = i;
 
-            btItemExerciseAddExercise.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    removeItem(posicion);
-                }
-            });
+        TextView tvItemExerciseNameCreateEdit = v.findViewById(R.id.tvItemExerciseNameCreateEdit);
+        TextView tvItemExerciseRepsCreateEdit = v.findViewById(R.id.tvItemExerciseRepsCreateEdit);
+        TextView tvItemExerciseSetsCreateEdit = v.findViewById(R.id.tvItemExerciseSetsCreateEdit);
+        ImageButton btItemExerciseAddExercise = v.findViewById(R.id.btItemExerciseCancelExercise);
 
-            tvItemExerciseNameCreateEdit.setText(currentExercise.getName());
-            tvItemExerciseRepsCreateEdit.setText(currentExercise.getReps().toString());
-            tvItemExerciseSetsCreateEdit.setText(currentExercise.getSets().toString());
+        btItemExerciseAddExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeItem(position);
+            }
+        });
 
-
-        }
-        return view;
+        tvItemExerciseNameCreateEdit.setText(currentExercise.getName());
+        tvItemExerciseRepsCreateEdit.setText(currentExercise.getReps().toString());
+        tvItemExerciseSetsCreateEdit.setText(currentExercise.getSets().toString());
+        return v;
     }
 
     private void removeItem(int position){

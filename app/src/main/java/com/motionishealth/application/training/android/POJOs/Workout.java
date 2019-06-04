@@ -1,6 +1,7 @@
 package com.motionishealth.application.training.android.POJOs;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Workout {
     private String name;
@@ -60,4 +61,20 @@ public class Workout {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Workout workout = (Workout) o;
+        return Objects.equals(name, workout.name) &&
+                Objects.equals(description, workout.description) &&
+                Objects.equals(estimatedTimeInMinutes, workout.estimatedTimeInMinutes) &&
+                Objects.equals(difficulty, workout.difficulty) &&
+                Objects.equals(exercises, workout.exercises);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, estimatedTimeInMinutes, difficulty, exercises);
+    }
 }
