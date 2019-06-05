@@ -15,13 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -84,13 +81,11 @@ public class MainActivity extends AppCompatActivity {
                         callHomeFragment();
                         workoutViewModel.setSelectedWorkout(null);
                         changeTitle();
-                        changeMenu();
                         break;
                     case R.id.optSideMenuRoutines:
                         callWorkoutListFragment();
                         workoutViewModel.setSelectedWorkout(null);
                         changeTitle();
-                        changeMenu();
                         break;
                     case R.id.optSideMenuLogout:
                         Log.i(TAG, "Cerrando sesión y volviendo a la pantalla de inicio");
@@ -117,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 if (workout != null){
                     callWorkoutDetailFragment();
                     changeTitle();
-                    changeMenu();
                 }
             }
         });
@@ -128,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 if (workout!=null){
                     callCreateEditFragment();
                     changeTitle();
-                    changeMenu();
                 }
             }
         });
@@ -140,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
                     callWorkoutListFragment();
                     workoutViewModel.setSelectedWorkout(null);
                     changeTitle();
-                    changeMenu();
                 }
             }
         });
@@ -227,14 +219,6 @@ public class MainActivity extends AppCompatActivity {
         }else if (currentFragment instanceof CreateEditWorkoutFragment){
             getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
             title = getSupportActionBar().getTitle().toString();
-        }
-    }
-
-    private void changeMenu(){
-        if (currentFragment instanceof CreateEditWorkoutFragment){
-            workoutViewModel.getCreatingEditingWorkout().setValue(true);
-        }else{
-            workoutViewModel.getCreatingEditingWorkout().setValue(false);
         }
     }
 

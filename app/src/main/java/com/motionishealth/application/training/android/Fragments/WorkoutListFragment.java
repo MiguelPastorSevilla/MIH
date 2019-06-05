@@ -51,9 +51,7 @@ public class WorkoutListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
-
         workoutViewModel.getWorkoutsFromFirebaseUser(user.getUid());
-        
         setRetainInstance(true);
         super.onCreate(savedInstanceState);
     }
@@ -79,8 +77,16 @@ public class WorkoutListFragment extends Fragment {
                     WorkoutAdapter adapter = new WorkoutAdapter(getContext(), workouts);
                     lvWorkoutList.setAdapter(adapter);
                     Log.i(TAG, "Lista actualizada, progress bar quitada.");
-                }else{
+                }
+            }
+        });
+
+        workoutViewModel.getNoWorkoutsAvailable().observe(getActivity(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean!=null && aBoolean){
                     pbLoadingMainList.setVisibility(View.GONE);
+                    Toast.makeText(getContext(),getResources().getString(R.string.fragments_workout_list_noWorkouts),Toast.LENGTH_LONG).show();
                     Log.i(TAG, "No hay rutinas, progress bar quitada.");
                 }
             }
