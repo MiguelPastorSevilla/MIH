@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.motionishealth.application.training.android.Adapter.WorkoutAdapter;
@@ -50,7 +51,9 @@ public class WorkoutListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
+
         workoutViewModel.getWorkoutsFromFirebaseUser(user.getUid());
+        
         setRetainInstance(true);
         super.onCreate(savedInstanceState);
     }
@@ -71,10 +74,15 @@ public class WorkoutListFragment extends Fragment {
         workoutViewModel.getWorkoutList().observe(getActivity(), new Observer<List<Workout>>() {
             @Override
             public void onChanged(@Nullable List<Workout> workouts) {
-                pbLoadingMainList.setVisibility(View.GONE);
-                WorkoutAdapter adapter = new WorkoutAdapter(getContext(), workoutViewModel.getWorkoutList().getValue());
-                lvWorkoutList.setAdapter(adapter);
-                Log.i(TAG, "Lista actualizada, progress bar quitada.");
+                if (workouts!=null && workouts.size()>0){
+                    pbLoadingMainList.setVisibility(View.GONE);
+                    WorkoutAdapter adapter = new WorkoutAdapter(getContext(), workouts);
+                    lvWorkoutList.setAdapter(adapter);
+                    Log.i(TAG, "Lista actualizada, progress bar quitada.");
+                }else{
+                    pbLoadingMainList.setVisibility(View.GONE);
+                    Log.i(TAG, "No hay rutinas, progress bar quitada.");
+                }
             }
         });
         fbAddWorkout = v.findViewById(R.id.fbAddWorkout);
@@ -84,8 +92,6 @@ public class WorkoutListFragment extends Fragment {
                 workoutViewModel.getCreateEditWorkout().setValue(new Workout());
             }
         });
-
-
         return v;
     }
 

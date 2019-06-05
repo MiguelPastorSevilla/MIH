@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar appActionBar;
     private WorkoutViewModel workoutViewModel;
 
-    private MenuItem miSaveNewWorkout;
-
     private Fragment currentFragment;
     private String title;
 
@@ -134,6 +132,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        workoutViewModel.getWorkoutListChanged().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean!=null && aBoolean){
+                    callWorkoutListFragment();
+                    workoutViewModel.setSelectedWorkout(null);
+                    changeTitle();
+                    changeMenu();
+                }
+            }
+        });
     }
 
     @Override
@@ -151,22 +161,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.topmenu_menu,menu);
-        miSaveNewWorkout = menu.findItem(R.id.optTopMenuSaveWorkout);
-        workoutViewModel.getCreatingEditingWorkout().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean!=null){
-                    miSaveNewWorkout.setVisible(aBoolean);
-                }
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -175,9 +169,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dlSideMenu.closeDrawers();
                 }
-                return true;
-            case R.id.optTopMenuSaveWorkout:
-                workoutViewModel.getWorkoutReadyToSave().setValue(true);
                 return true;
             default:
                 break;
@@ -219,8 +210,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         CreateEditWorkoutFragment createEditWorkoutFragment = new CreateEditWorkoutFragment();
         currentFragment = createEditWorkoutFragment;
-        fragmentTransaction.replace(R.id.flFragmentContainer, createEditWorkoutFragment, CreateEditWorkoutFragment.TAG);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.flFragmentContainer, createEditWorkoutFragment);
         fragmentTransaction.commit();
     }
 
@@ -251,9 +241,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount()>0 && (currentFragment instanceof WorkoutDetailFragment || currentFragment instanceof CreateEditWorkoutFragment)){
+        if (fragmentManager.getBackStackEntryCount()>0 && currentFragment instanceof WorkoutDetailFragment){
             workoutViewModel.setSelectedWorkout(null);
-            workoutViewModel.getCreatingEditingWorkout().setValue(false);
             emptyFragmentBackStack();
             currentFragment = fragmentManager.findFragmentByTag(WorkoutListFragment.WORKOUT_FRAGMENT_TAG);
             changeTitle();

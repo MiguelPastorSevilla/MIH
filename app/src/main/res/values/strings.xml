@@ -16,6 +16,7 @@
     <string name="sideMenu_options_routines">Rutinas</string>
     <string name="sideMenu_options_logout">Cerrar sesión</string>
     <string name="fragments_titles_details">Detalles de rutina</string>
+    <string name="fragments_workout_list_noWorkouts">Aún no tienes rutinas creadas</string>
     <string name="fragments_details_exerciseNameHeader">Ejercicio</string>
     <string name="fragments_details_exerciseRepsHeader">Repeticiones</string>
     <string name="fragments_details_exerciseSetsHeader">Series</string>

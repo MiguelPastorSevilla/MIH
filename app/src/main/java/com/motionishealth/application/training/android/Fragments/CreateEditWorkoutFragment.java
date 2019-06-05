@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -52,6 +53,8 @@ public class CreateEditWorkoutFragment extends Fragment {
     private EditText etItemExerciseSetsCreateEdit;
     private ImageButton btItemExerciseAddExercise;
 
+    private FloatingActionButton fabSaveWorkout;
+
     private ExerciseCreationAdapter exerciseCreationAdapter;
 
     public CreateEditWorkoutFragment() {
@@ -63,7 +66,6 @@ public class CreateEditWorkoutFragment extends Fragment {
         super.onCreate(savedInstanceState);
         workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
         exerciseCreationAdapter = new ExerciseCreationAdapter(getContext());
-        setRetainInstance(true);
     }
 
     @Override
@@ -83,6 +85,7 @@ public class CreateEditWorkoutFragment extends Fragment {
         etItemExerciseRepsCreateEdit = v.findViewById(R.id.etItemExerciseRepsCreateEdit);
         etItemExerciseSetsCreateEdit = v.findViewById(R.id.etItemExerciseSetsCreateEdit);
 
+        fabSaveWorkout = v.findViewById(R.id.fabSaveWorkout);
 
         etItemExerciseSetsCreateEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -120,32 +123,29 @@ public class CreateEditWorkoutFragment extends Fragment {
             }
         });
 
-        workoutViewModel.getWorkoutReadyToSave().observe(getActivity(), new Observer<Boolean>() {
+        fabSaveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean!=null && aBoolean){
-                    workoutViewModel.getWorkoutReadyToSave().setValue(false);
-                    trySaveWorkout();
-                }
+            public void onClick(View view) {
+                trySaveWorkout();
             }
         });
+
+
         return v;
     }
 
     private void trySaveWorkout() {
         Log.i(TAG,"Intento de guardar rutina");
-        String workoutName = etItemWorkoutNameCreateEdit.getText().toString();
-        if (workoutName.isEmpty()){
+        if (etItemWorkoutNameCreateEdit.getText().toString().isEmpty()){
             Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_name),Toast.LENGTH_SHORT
             ).show();
             Log.w(TAG,"Nombre de rutina vacío");
             return;
         }
-        String workoutDescription = etItemWorkoutDescriptionCreateEdit.getText().toString();
-        if (workoutDescription.isEmpty()){
+        if (etItemWorkoutDescriptionCreateEdit.getText().toString().isEmpty()){
             Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_description),Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG,"Descripción de rutina vacía");
+            Log.w(TAG,"Descripción de rutina vacía ");
             return;
         }
         if (etItemWorkoutETCreateEdit.getText().toString().isEmpty()){
@@ -154,8 +154,7 @@ public class CreateEditWorkoutFragment extends Fragment {
             Log.w(TAG,"Tiempo estimado de rutina vacío");
             return;
         }
-        Long workoutEstimatedTime = Long.parseLong(etItemWorkoutETCreateEdit.getText().toString());
-        if (workoutEstimatedTime <= 0){
+        if (Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()) <= 0){
             Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_et_zero),Toast.LENGTH_SHORT
             ).show();
             Log.w(TAG,"Tiempo estimado de rutina es 0");
@@ -186,12 +185,14 @@ public class CreateEditWorkoutFragment extends Fragment {
             return;
         }
 
-        Workout workout = new Workout(workoutName,workoutDescription,workoutEstimatedTime,workoutDifficulty,exerciseCreationAdapter.getExercises());
+        Workout workout = new Workout(etItemWorkoutNameCreateEdit.getText().toString(),
+                etItemWorkoutDescriptionCreateEdit.getText().toString(),
+                Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()),
+                workoutDifficulty,
+                exerciseCreationAdapter.getExercises());
 
-        workoutViewModel.getWorkoutList().getValue().add(workout);
-
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        fm.popBackStack();
+        workoutViewModel.addWorkoutToList(workout);
+        workoutViewModel.getWorkoutListChanged().setValue(true);
     }
 
     @Override

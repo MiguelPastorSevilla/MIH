@@ -18,14 +18,14 @@ public class WorkoutViewModel extends ViewModel {
     private MutableLiveData<Workout> selectedWorkout = new MutableLiveData<>();
     private MutableLiveData<Workout> createEditWorkout = new MutableLiveData<>();
     private MutableLiveData<Boolean> creatingEditingWorkout = new MutableLiveData<>();
-    private MutableLiveData<Boolean> workoutReadyToSave = new MutableLiveData<>();
+    private MutableLiveData<Boolean> workoutListChanged = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> getCreatingEditingWorkout() {
         return creatingEditingWorkout;
     }
 
-    public MutableLiveData<Boolean> getWorkoutReadyToSave() {
-        return workoutReadyToSave;
+    public MutableLiveData<Boolean> getWorkoutListChanged() {
+        return workoutListChanged;
     }
 
     public MutableLiveData<List<Workout>> getWorkoutList() {
@@ -46,26 +46,19 @@ public class WorkoutViewModel extends ViewModel {
 
     public void getWorkoutsFromFirebaseUser(String uid) {
         Log.i(TAG,"Cargando datos de rutinas");
-
-        Exercise ejercicioPrueba1 = new Exercise("Press banca",(long)10,(long)4);
-        Exercise ejercicioPrueba2 = new Exercise("Curl biceps",(long)12,(long)5);
-        Exercise ejercicioPrueba3 = new Exercise("Squat",(long)8,(long)3);
-
-        List<Exercise> ejerciciosPrueba = new ArrayList<>();
-        ejerciciosPrueba.add(ejercicioPrueba1);
-        ejerciciosPrueba.add(ejercicioPrueba2);
-        ejerciciosPrueba.add(ejercicioPrueba3);
-
-        Workout rutinaPrueba1 = new Workout("Hipertrofia","Ejercicios parar aumentar la capacidad sanguinea",(long)30, (long)8, ejerciciosPrueba);
-
-        List<Workout> rutinasPrueba1 = new ArrayList<>();
-
-        rutinasPrueba1.add(rutinaPrueba1);
-        rutinasPrueba1.add(rutinaPrueba1);
-        rutinasPrueba1.add(rutinaPrueba1);
-
-        workoutList.setValue(rutinasPrueba1);
-
+        if (workoutListChanged.getValue()==null){
+            //Cargar datos de firebase
+            workoutList.setValue(new ArrayList<Workout>());
+        }
+        workoutListChanged.setValue(false);
         Log.i(TAG,"Datos de rutinas cargados");
+    }
+
+    public void addWorkoutToList(Workout workout){
+        List<Workout> workouts = workoutList.getValue();
+        workouts.add(workout);
+        workoutList.setValue(workouts);
+
+        //Subir datos a firebase
     }
 }
