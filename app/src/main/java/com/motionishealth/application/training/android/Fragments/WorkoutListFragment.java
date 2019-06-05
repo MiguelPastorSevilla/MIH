@@ -68,6 +68,15 @@ public class WorkoutListFragment extends Fragment {
                 workoutViewModel.setSelectedWorkout(selected);
             }
         });
+        lvWorkoutList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Workout selected = (Workout)lvWorkoutList.getAdapter().getItem(pos);
+                workoutViewModel.getCreateEditWorkout().setValue(selected);
+                workoutViewModel.getEditingWorkout().setValue(true);
+                return true;
+            }
+        });
         pbLoadingMainList = v.findViewById(R.id.pbLoadingMainList);
         workoutViewModel.getWorkoutList().observe(getActivity(), new Observer<List<Workout>>() {
             @Override
@@ -81,7 +90,6 @@ public class WorkoutListFragment extends Fragment {
                 }
             }
         });
-
         workoutViewModel.getNoWorkoutsAvailable().observe(getActivity(), new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
@@ -97,6 +105,7 @@ public class WorkoutListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 workoutViewModel.getCreateEditWorkout().setValue(new Workout());
+                workoutViewModel.getEditingWorkout().setValue(false);
             }
         });
         return v;

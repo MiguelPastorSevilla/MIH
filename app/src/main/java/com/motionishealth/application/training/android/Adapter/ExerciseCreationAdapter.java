@@ -83,6 +83,8 @@ public class ExerciseCreationAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
-
+    public void setExercises(ArrayList<Exercise> exercises) {
+        this.exercises = exercises;
+        notifyDataSetChanged();
+    }
 }

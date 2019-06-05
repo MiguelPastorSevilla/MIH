@@ -69,7 +69,6 @@ public class CreateEditWorkoutFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
-        exerciseCreationAdapter = new ExerciseCreationAdapter(getContext());
     }
 
     @Override
@@ -83,7 +82,6 @@ public class CreateEditWorkoutFragment extends Fragment {
         rgItemWorkoutDifficulty = v.findViewById(R.id.rgItemWorkoutDifficulty);
 
         lvExerciseList = v.findViewById(R.id.lvExerciseCreationList);
-        lvExerciseList.setAdapter(exerciseCreationAdapter);
 
         tvItemExerciseNameHeaderCreateEdit = v.findViewById(R.id.tvItemExerciseNameHeaderCreateEdit);
         tvItemExerciseRepsHeaderCreateEdit = v.findViewById(R.id.tvItemExerciseRepsHeaderCreateEdit);
@@ -159,6 +157,24 @@ public class CreateEditWorkoutFragment extends Fragment {
             }
         });
 
+        exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),new ArrayList<Exercise>());
+
+        if (workoutViewModel.getEditingWorkout().getValue()){
+                Workout workoutReceived = workoutViewModel.getCreateEditWorkout().getValue();
+                etItemWorkoutNameCreateEdit.setText(workoutReceived.getName());
+                etItemWorkoutDescriptionCreateEdit.setText(workoutReceived.getDescription());
+                etItemWorkoutETCreateEdit.setText(workoutReceived.getEstimatedTimeInMinutes().toString());
+                if (workoutReceived.getDifficulty() == (long)0){
+                    rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyEasy);
+                }else if (workoutReceived.getDifficulty() == (long)1){
+                    rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyMedium);
+                }else{
+                    rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyHard);
+                }
+                exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),(ArrayList<Exercise>)workoutReceived.getExercises());
+            }
+
+        lvExerciseList.setAdapter(exerciseCreationAdapter);
 
         return v;
     }
@@ -214,19 +230,25 @@ public class CreateEditWorkoutFragment extends Fragment {
             return;
         }
 
-        Workout workout = new Workout(etItemWorkoutNameCreateEdit.getText().toString(),
-                etItemWorkoutDescriptionCreateEdit.getText().toString(),
-                Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()),
-                workoutDifficulty,
-                exerciseCreationAdapter.getExercises());
+        Workout workout = new Workout();
+
+        if (!workoutViewModel.getEditingWorkout().getValue()){
+            workout = new Workout(etItemWorkoutNameCreateEdit.getText().toString(),
+                    etItemWorkoutDescriptionCreateEdit.getText().toString(),
+                    Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()),
+                    workoutDifficulty,
+                    exerciseCreationAdapter.getExercises());
+        }else{
+            workout = workoutViewModel.getCreateEditWorkout().getValue();
+            workout.setName(etItemWorkoutNameCreateEdit.getText().toString());
+            workout.setDescription(etItemWorkoutDescriptionCreateEdit.getText().toString());
+            workout.setEstimatedTimeInMinutes(Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()));
+            workout.setDifficulty(workoutDifficulty);
+            workout.setExercises(exerciseCreationAdapter.getExercises());
+        }
 
         workoutViewModel.addWorkoutToList(workout);
         workoutViewModel.getWorkoutListChanged().setValue(true);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
         workoutViewModel.getCreateEditWorkout().setValue(null);
     }
 }

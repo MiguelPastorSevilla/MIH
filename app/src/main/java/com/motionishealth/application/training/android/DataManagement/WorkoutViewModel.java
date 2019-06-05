@@ -28,6 +28,16 @@ public class WorkoutViewModel extends ViewModel {
     private MutableLiveData<Boolean> workoutListChanged = new MutableLiveData<>();
     private MutableLiveData<Boolean> noWorkoutsAvailable = new MutableLiveData<>();
 
+    public MutableLiveData<Boolean> getEditingWorkout() {
+        return editingWorkout;
+    }
+
+    public void setEditingWorkout(MutableLiveData<Boolean> editingWorkout) {
+        this.editingWorkout = editingWorkout;
+    }
+
+    private MutableLiveData<Boolean> editingWorkout = new MutableLiveData<>();
+
     public MutableLiveData<Boolean> getWorkoutListChanged() {
         return workoutListChanged;
     }
@@ -88,20 +98,25 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     public void addWorkoutToList(Workout workout){
-        List<Workout> workouts = workoutList.getValue();
+        if (!editingWorkout.getValue()){
+            List<Workout> workouts = workoutList.getValue();
+            database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS);
+            String key = database.push().getKey();
+            workout.setKey(key);
+            workouts.add(workout);
+            workoutList.setValue(workouts);
+            database.child(key).setValue(workout);
+            noWorkoutsAvailable.setValue(false);
+        }else{
+            List<Workout> workouts = workoutList.getValue();
+            database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS).child(workout.getKey());
+            database.setValue(workout);
+            workouts.remove(workout);
+            workouts.add(workout);
+            workoutList.setValue(workouts);
+            noWorkoutsAvailable.setValue(false);
+        }
 
-        database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS);
-        String key = database.push().getKey();
-
-        workout.setKey(key);
-
-        workouts.add(workout);
-
-        workoutList.setValue(workouts);
-
-        database.child(key).setValue(workout);
-
-        noWorkoutsAvailable.setValue(false);
     }
 
     public void removeWorkoutFromList(Workout workout){

@@ -1,5 +1,6 @@
 package com.motionishealth.application.training.android.Activities;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.PersistableBundle;
@@ -80,11 +81,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.optSideMenuHome:
                         callHomeFragment();
                         workoutViewModel.setSelectedWorkout(null);
+                        workoutViewModel.setEditingWorkout(new MutableLiveData<Boolean>());
                         changeTitle();
                         break;
                     case R.id.optSideMenuRoutines:
                         callWorkoutListFragment();
                         workoutViewModel.setSelectedWorkout(null);
+                        workoutViewModel.setEditingWorkout(new MutableLiveData<Boolean>());
                         changeTitle();
                         break;
                     case R.id.optSideMenuLogout:
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         workoutViewModel.getCreateEditWorkout().observe(this, new Observer<Workout>() {
             @Override
             public void onChanged(@Nullable Workout workout) {
-                if (workout!=null){
+                if (workout!=null && workoutViewModel.getCreateEditWorkout()!=null){
                     callCreateEditFragment();
                     changeTitle();
                 }
