@@ -48,6 +48,10 @@ public class CreateEditWorkoutFragment extends Fragment {
 
     private ListView lvExerciseList;
 
+    private TextView tvItemExerciseNameHeaderCreateEdit;
+    private TextView tvItemExerciseRepsHeaderCreateEdit;
+    private TextView tvItemExerciseSetsHeaderCreateEdit;
+
     private EditText etItemExerciseNameCreateEdit;
     private EditText etItemExerciseRepsCreateEdit;
     private EditText etItemExerciseSetsCreateEdit;
@@ -80,6 +84,31 @@ public class CreateEditWorkoutFragment extends Fragment {
 
         lvExerciseList = v.findViewById(R.id.lvExerciseCreationList);
         lvExerciseList.setAdapter(exerciseCreationAdapter);
+
+        tvItemExerciseNameHeaderCreateEdit = v.findViewById(R.id.tvItemExerciseNameHeaderCreateEdit);
+        tvItemExerciseRepsHeaderCreateEdit = v.findViewById(R.id.tvItemExerciseRepsHeaderCreateEdit);
+        tvItemExerciseSetsHeaderCreateEdit = v.findViewById(R.id.tvItemExerciseSetsHeaderCreateEdit);
+
+        tvItemExerciseNameHeaderCreateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etItemExerciseNameCreateEdit.requestFocus();
+            }
+        });
+
+        tvItemExerciseRepsHeaderCreateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etItemExerciseRepsCreateEdit.requestFocus();
+            }
+        });
+
+        tvItemExerciseSetsHeaderCreateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etItemExerciseSetsCreateEdit.requestFocus();
+            }
+        });
 
         etItemExerciseNameCreateEdit = v.findViewById(R.id.etItemExerciseNameCreateEdit);
         etItemExerciseRepsCreateEdit = v.findViewById(R.id.etItemExerciseRepsCreateEdit);
