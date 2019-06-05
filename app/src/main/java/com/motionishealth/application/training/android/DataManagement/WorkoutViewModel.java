@@ -17,6 +17,16 @@ public class WorkoutViewModel extends ViewModel {
     private MutableLiveData<List<Workout>> workoutList = new MutableLiveData<>();
     private MutableLiveData<Workout> selectedWorkout = new MutableLiveData<>();
     private MutableLiveData<Workout> createEditWorkout = new MutableLiveData<>();
+    private MutableLiveData<Boolean> creatingEditingWorkout = new MutableLiveData<>();
+    private MutableLiveData<Boolean> workoutReadyToSave = new MutableLiveData<>();
+
+    public MutableLiveData<Boolean> getCreatingEditingWorkout() {
+        return creatingEditingWorkout;
+    }
+
+    public MutableLiveData<Boolean> getWorkoutReadyToSave() {
+        return workoutReadyToSave;
+    }
 
     public MutableLiveData<List<Workout>> getWorkoutList() {
         return workoutList;

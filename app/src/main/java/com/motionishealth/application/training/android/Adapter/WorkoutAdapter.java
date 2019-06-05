@@ -56,15 +56,15 @@ public class WorkoutAdapter extends BaseAdapter {
         TextView tvET = view.findViewById(R.id.tvItemWorkoutMasterET);
         TextView tvExerciseCount = view.findViewById(R.id.tvItemWorkoutMasterExerciseNumber);
 
-        if (currentWorkout.getDifficulty() >= 0 && currentWorkout.getDifficulty()<4){
+        if (currentWorkout.getDifficulty() == 0){
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_easy));
-        }else if (currentWorkout.getDifficulty() >= 4 && currentWorkout.getDifficulty()< 7){
+        }else if (currentWorkout.getDifficulty() == 1){
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_medium));
         }else{
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_hard));
         }
         tvName.setText("Nombre: " + currentWorkout.getName());
-        tvET.setText("Tiempo aprox: " + currentWorkout.getEstimatedTimeInMinutes() + "'");
+        tvET.setText("Tiempo estimado: " + currentWorkout.getEstimatedTimeInMinutes() + "'");
         tvExerciseCount.setText("Número de ejercicios: " + currentWorkout.getExercises().size());
 
         return view;

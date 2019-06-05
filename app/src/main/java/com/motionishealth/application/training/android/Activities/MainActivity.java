@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     private final static String FIRST_ACTIVITY_CREATION = "com.motionishealth.application.training.android.FIRSTACTIVITYCREATION";
     private final static String CURRENT_TITLE = "com.motionishealth.application.training.android.CURRENTTITLE";
+    private final static String MENU_SAVE_SHOWN = "com.motionishealth.application.training.android.SAVEICON";
 
     private TextView tvSideMenuHeaderUserEmail;
     private FrameLayout flFragmentContainer;
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
     private Toolbar appActionBar;
     private WorkoutViewModel workoutViewModel;
+
+    private MenuItem miSaveNewWorkout;
 
     private Fragment currentFragment;
     private String title;
@@ -81,11 +86,13 @@ public class MainActivity extends AppCompatActivity {
                         callHomeFragment();
                         workoutViewModel.setSelectedWorkout(null);
                         changeTitle();
+                        changeMenu();
                         break;
                     case R.id.optSideMenuRoutines:
                         callWorkoutListFragment();
                         workoutViewModel.setSelectedWorkout(null);
                         changeTitle();
+                        changeMenu();
                         break;
                     case R.id.optSideMenuLogout:
                         Log.i(TAG, "Cerrando sesión y volviendo a la pantalla de inicio");
@@ -112,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 if (workout != null){
                     callWorkoutDetailFragment();
                     changeTitle();
+                    changeMenu();
                 }
             }
         });
@@ -122,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 if (workout!=null){
                     callCreateEditFragment();
                     changeTitle();
+                    changeMenu();
                 }
             }
         });
@@ -142,6 +151,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.topmenu_menu,menu);
+        miSaveNewWorkout = menu.findItem(R.id.optTopMenuSaveWorkout);
+        workoutViewModel.getCreatingEditingWorkout().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if (aBoolean!=null){
+                    miSaveNewWorkout.setVisible(aBoolean);
+                }
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -150,6 +175,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dlSideMenu.closeDrawers();
                 }
+                return true;
+            case R.id.optTopMenuSaveWorkout:
+                workoutViewModel.getWorkoutReadyToSave().setValue(true);
                 return true;
             default:
                 break;
@@ -192,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         CreateEditWorkoutFragment createEditWorkoutFragment = new CreateEditWorkoutFragment();
         currentFragment = createEditWorkoutFragment;
         fragmentTransaction.replace(R.id.flFragmentContainer, createEditWorkoutFragment, CreateEditWorkoutFragment.TAG);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -211,11 +240,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void changeMenu(){
+        if (currentFragment instanceof CreateEditWorkoutFragment){
+            workoutViewModel.getCreatingEditingWorkout().setValue(true);
+        }else{
+            workoutViewModel.getCreatingEditingWorkout().setValue(false);
+        }
+    }
+
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount()>0 && currentFragment instanceof WorkoutDetailFragment){
+        if (fragmentManager.getBackStackEntryCount()>0 && (currentFragment instanceof WorkoutDetailFragment || currentFragment instanceof CreateEditWorkoutFragment)){
             workoutViewModel.setSelectedWorkout(null);
+            workoutViewModel.getCreatingEditingWorkout().setValue(false);
             emptyFragmentBackStack();
             currentFragment = fragmentManager.findFragmentByTag(WorkoutListFragment.WORKOUT_FRAGMENT_TAG);
             changeTitle();
