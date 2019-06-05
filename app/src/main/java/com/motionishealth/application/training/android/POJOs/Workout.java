@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Workout {
+    private String key;
     private String name;
     private String description;
     private Long estimatedTimeInMinutes;
@@ -60,21 +61,24 @@ public class Workout {
         this.exercises = exercises;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Workout workout = (Workout) o;
-        return Objects.equals(name, workout.name) &&
-                Objects.equals(description, workout.description) &&
-                Objects.equals(estimatedTimeInMinutes, workout.estimatedTimeInMinutes) &&
-                Objects.equals(difficulty, workout.difficulty) &&
-                Objects.equals(exercises, workout.exercises);
+        return Objects.equals(key, workout.key);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, estimatedTimeInMinutes, difficulty, exercises);
+        return Objects.hash(key);
     }
 }

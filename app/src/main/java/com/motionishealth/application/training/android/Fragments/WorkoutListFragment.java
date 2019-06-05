@@ -75,6 +75,7 @@ public class WorkoutListFragment extends Fragment {
                 if (workouts!=null && workouts.size()>0){
                     pbLoadingMainList.setVisibility(View.GONE);
                     WorkoutAdapter adapter = new WorkoutAdapter(getContext(), workouts);
+                    adapter.setWorkoutViewModel(workoutViewModel);
                     lvWorkoutList.setAdapter(adapter);
                     Log.i(TAG, "Lista actualizada, progress bar quitada.");
                 }

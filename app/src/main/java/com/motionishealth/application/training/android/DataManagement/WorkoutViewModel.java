@@ -65,6 +65,7 @@ public class WorkoutViewModel extends ViewModel {
                     ArrayList<Workout> workoutsFromFirebase = new ArrayList<>();
                     for(DataSnapshot snapshot  : dataSnapshot.getChildren()){
                         Workout workout = snapshot.getValue(Workout.class);
+                        workout.setKey(snapshot.getKey());
                         workoutsFromFirebase.add(workout);
                     }
                     workoutList.setValue(workoutsFromFirebase);
@@ -88,14 +89,27 @@ public class WorkoutViewModel extends ViewModel {
 
     public void addWorkoutToList(Workout workout){
         List<Workout> workouts = workoutList.getValue();
-        workouts.add(workout);
-        workoutList.setValue(workouts);
 
         database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS);
         String key = database.push().getKey();
+
+        workout.setKey(key);
+
+        workouts.add(workout);
+
+        workoutList.setValue(workouts);
+
         database.child(key).setValue(workout);
 
         noWorkoutsAvailable.setValue(false);
+    }
 
+    public void removeWorkoutFromList(Workout workout){
+        List<Workout> workouts = workoutList.getValue();
+        FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS)
+        .child(workout.getKey()).setValue(null);
+
+        workouts.remove(workout);
+        workoutList.setValue(workouts);
     }
 }
