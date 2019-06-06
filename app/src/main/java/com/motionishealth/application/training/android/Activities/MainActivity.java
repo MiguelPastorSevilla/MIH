@@ -80,14 +80,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.optSideMenuHome:
                         callHomeFragment();
-                        workoutViewModel.setSelectedWorkout(null);
-                        workoutViewModel.setEditingWorkout(new MutableLiveData<Boolean>());
+                        resetViewModelValues();
                         changeTitle();
                         break;
                     case R.id.optSideMenuRoutines:
                         callWorkoutListFragment();
-                        workoutViewModel.setSelectedWorkout(null);
-                        workoutViewModel.setEditingWorkout(new MutableLiveData<Boolean>());
+                        resetViewModelValues();
                         changeTitle();
                         break;
                     case R.id.optSideMenuLogout:
@@ -122,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         workoutViewModel.getCreateEditWorkout().observe(this, new Observer<Workout>() {
             @Override
             public void onChanged(@Nullable Workout workout) {
-                if (workout!=null && workoutViewModel.getCreateEditWorkout()!=null){
+                if (workout!=null){
                     callCreateEditFragment();
                     changeTitle();
                 }
@@ -220,8 +218,13 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(getResources().getString(R.string.fragments_titles_details));
             title = getSupportActionBar().getTitle().toString();
         }else if (currentFragment instanceof CreateEditWorkoutFragment){
-            getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
-            title = getSupportActionBar().getTitle().toString();
+            if (workoutViewModel.getCreatingWorkout().getValue()){
+                getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
+                title = getSupportActionBar().getTitle().toString();
+            }else{
+                getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title_edit));
+                title = getSupportActionBar().getTitle().toString();
+            }
         }
     }
 
@@ -241,5 +244,12 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
             fragmentManager.popBackStack();
         }
+    }
+
+    private void resetViewModelValues(){
+        workoutViewModel.setSelectedWorkout(null);
+        workoutViewModel.getCreateEditWorkout().setValue(null);
+        workoutViewModel.getEditingWorkout().setValue(false);
+        workoutViewModel.getCreatingWorkout().setValue(false);
     }
 }

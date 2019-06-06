@@ -104,8 +104,8 @@ public class WorkoutListFragment extends Fragment {
         fbAddWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                workoutViewModel.getCreatingWorkout().setValue(true);
                 workoutViewModel.getCreateEditWorkout().setValue(new Workout());
-                workoutViewModel.getEditingWorkout().setValue(false);
             }
         });
         return v;

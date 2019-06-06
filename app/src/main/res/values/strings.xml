@@ -30,6 +30,7 @@
     <string name="fragments_create_edit_difficulty_medium">Medio</string>
     <string name="fragments_create_edit_difficulty_hard">Difícil</string>
     <string name="fragments_create_edit_title">Nueva rutina</string>
+    <string name="fragments_create_edit_title_edit">Modificando rutina</string>
     <string name="fragments_create_edit_error_name">Introduce un nombre de rutina</string>
     <string name="fragments_create_edit_error_description">Introduce una descripción</string>
     <string name="fragments_create_edit_error_et">Introduce un tiempo estimado</string>

@@ -27,6 +27,18 @@ public class WorkoutViewModel extends ViewModel {
     private MutableLiveData<Workout> createEditWorkout = new MutableLiveData<>();
     private MutableLiveData<Boolean> workoutListChanged = new MutableLiveData<>();
     private MutableLiveData<Boolean> noWorkoutsAvailable = new MutableLiveData<>();
+    private MutableLiveData<Boolean> editingWorkout = new MutableLiveData<>();
+    private MutableLiveData<Boolean> creatingWorkout = new MutableLiveData<>();
+
+
+    public MutableLiveData<Boolean> getCreatingWorkout() {
+        return creatingWorkout;
+    }
+
+    public void setCreatingWorkout(MutableLiveData<Boolean> creatingWorkout) {
+        this.creatingWorkout = creatingWorkout;
+    }
+
 
     public MutableLiveData<Boolean> getEditingWorkout() {
         return editingWorkout;
@@ -35,8 +47,6 @@ public class WorkoutViewModel extends ViewModel {
     public void setEditingWorkout(MutableLiveData<Boolean> editingWorkout) {
         this.editingWorkout = editingWorkout;
     }
-
-    private MutableLiveData<Boolean> editingWorkout = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> getWorkoutListChanged() {
         return workoutListChanged;
@@ -98,7 +108,7 @@ public class WorkoutViewModel extends ViewModel {
     }
 
     public void addWorkoutToList(Workout workout){
-        if (!editingWorkout.getValue()){
+        if (creatingWorkout.getValue()){
             List<Workout> workouts = workoutList.getValue();
             database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS);
             String key = database.push().getKey();
