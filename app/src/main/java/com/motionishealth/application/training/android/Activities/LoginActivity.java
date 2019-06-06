@@ -105,8 +105,13 @@ public class LoginActivity extends AppCompatActivity {
         if (rememberAccount) {
             tilEmail.getEditText().setText(preferences.getString(EMAIL_PREFERENCES, ""));
             cbRememberAccount.setChecked(true);
+            tilPassword.getEditText().setText("");
             tilPassword.requestFocus();
             Log.i(TAG, "Preferencias recuperadas");
+        }else{
+            tilEmail.getEditText().setText("");
+            tilPassword.getEditText().setText("");
+            tilEmail.requestFocus();
         }
     }
 
@@ -165,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        tryGetEmailFromPreferences();
         //Comprobamos al inicio de la aplicación si el usuario ya se encuentra logeado.
         //En este caso, lanzamos directamente la actividad principal.
         FirebaseUser currentUser = auth.getCurrentUser();

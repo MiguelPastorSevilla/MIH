@@ -138,9 +138,12 @@ public class CreateEditWorkoutFragment extends Fragment {
                     exerciseReps = Long.parseLong(etItemExerciseRepsCreateEdit.getText().toString());
                     exerciseSets = Long.parseLong(etItemExerciseSetsCreateEdit.getText().toString());
                 } catch (Exception e) {
+                    Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_exercises_too_long), Toast.LENGTH_SHORT
+                    ).show();
                     Log.e(TAG, e.getMessage());
+                    return;
                 }
-                if (!exerciseName.isEmpty()) {
+                if (!exerciseName.trim().isEmpty()) {
                     Exercise exercise = new Exercise(exerciseName, exerciseReps, exerciseSets);
                     exerciseCreationAdapter.getExercises().add(exercise);
                     exerciseCreationAdapter.notifyDataSetChanged();
@@ -148,6 +151,9 @@ public class CreateEditWorkoutFragment extends Fragment {
                     etItemExerciseRepsCreateEdit.setText("");
                     etItemExerciseSetsCreateEdit.setText("");
                     etItemExerciseNameCreateEdit.requestFocus();
+                }else{
+                    Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_exercises_no_name), Toast.LENGTH_SHORT
+                    ).show();
                 }
             }
         });
@@ -210,10 +216,17 @@ public class CreateEditWorkoutFragment extends Fragment {
             Log.w(TAG, "Tiempo estimado de rutina vacío");
             return;
         }
-        if (Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()) <= 0) {
-            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_et_zero), Toast.LENGTH_SHORT
+        try{
+            if (Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()) <= 0) {
+                Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_et_zero), Toast.LENGTH_SHORT
+                ).show();
+                Log.w(TAG, "Tiempo estimado de rutina es 0");
+                return;
+            }
+        }catch (Exception e){
+            Log.e(TAG,e.getMessage());
+            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_et_too_long), Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG, "Tiempo estimado de rutina es 0");
             return;
         }
         Long workoutDifficulty;

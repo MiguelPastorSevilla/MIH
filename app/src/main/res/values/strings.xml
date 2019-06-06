@@ -35,8 +35,11 @@
     <string name="fragments_create_edit_error_description">Introduce una descripción</string>
     <string name="fragments_create_edit_error_et">Introduce un tiempo estimado</string>
     <string name="fragments_create_edit_error_et_zero">No se puede hacer una rutina en 0 minutos. Ojalá.</string>
+    <string name="fragments_create_edit_error_et_too_long">No se puede hacer una rutina tan larga.</string>
     <string name="fragments_create_edit_error_difficulty">Selecciona una dificultad</string>
     <string name="fragments_create_edit_error_exercises">Crea al menos un ejercicio</string>
+    <string name="fragments_create_edit_error_exercises_no_name">Pon un nombre al ejercicio</string>
+    <string name="fragments_create_edit_error_exercises_too_long">Revisa las series y repeticiones</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
