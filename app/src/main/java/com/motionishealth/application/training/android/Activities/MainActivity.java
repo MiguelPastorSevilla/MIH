@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         workoutViewModel.getCreateEditWorkout().observe(this, new Observer<Workout>() {
             @Override
             public void onChanged(@Nullable Workout workout) {
-                if (workout!=null){
+                if (workout!=null && workoutViewModel.getCreatingWorkout().getValue()==false && workoutViewModel.getEditingWorkout().getValue() == false){
                     callCreateEditFragment();
                     changeTitle();
                 }
@@ -218,13 +218,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(getResources().getString(R.string.fragments_titles_details));
             title = getSupportActionBar().getTitle().toString();
         }else if (currentFragment instanceof CreateEditWorkoutFragment){
-            if (workoutViewModel.getCreatingWorkout().getValue()){
-                getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
-                title = getSupportActionBar().getTitle().toString();
-            }else{
-                getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title_edit));
-                title = getSupportActionBar().getTitle().toString();
-            }
+            getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
+            title = getSupportActionBar().getTitle().toString();
         }
     }
 

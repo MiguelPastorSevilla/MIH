@@ -73,7 +73,6 @@ public class WorkoutListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Workout selected = (Workout)lvWorkoutList.getAdapter().getItem(pos);
                 workoutViewModel.getCreateEditWorkout().setValue(selected);
-                workoutViewModel.getEditingWorkout().setValue(true);
                 return true;
             }
         });
@@ -104,7 +103,6 @@ public class WorkoutListFragment extends Fragment {
         fbAddWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                workoutViewModel.getCreatingWorkout().setValue(true);
                 workoutViewModel.getCreateEditWorkout().setValue(new Workout());
             }
         });

@@ -50,9 +50,9 @@ public class WorkoutDetailFragment extends Fragment {
         TextView tvWorkoutDetailsDescription = v.findViewById(R.id.tvItemWorkoutDetailDescription);
         TextView tvWorkoutDetailsET = v.findViewById(R.id.tvItemWorkoutDetailET);
 
-        tvWorkoutDetailsName.setText(workout.getName());
-        tvWorkoutDetailsDescription.setText(workout.getDescription());
-        tvWorkoutDetailsET.setText(workout.getEstimatedTimeInMinutes().toString());
+        tvWorkoutDetailsName.setText("Nombre: "+workout.getName());
+        tvWorkoutDetailsDescription.setText("Descripción: "+workout.getDescription());
+        tvWorkoutDetailsET.setText("Tiempo estimado de duración: "+workout.getEstimatedTimeInMinutes().toString());
 
         for (Exercise e : workout.getExercises()){
             View exerciseView = inflater.inflate(R.layout.item_workout_exercise_details,lyFragmentWorkoutDetails,false);

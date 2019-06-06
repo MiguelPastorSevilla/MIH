@@ -87,7 +87,7 @@ public class WorkoutAdapter extends BaseAdapter {
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_hard));
         }
         tvName.setText("Nombre: " + currentWorkout.getName());
-        tvET.setText("Tiempo estimado: " + currentWorkout.getEstimatedTimeInMinutes() + "'");
+        tvET.setText("Tiempo estimado de duración: " + currentWorkout.getEstimatedTimeInMinutes() + "'");
         tvExerciseCount.setText("Número de ejercicios: " + currentWorkout.getExercises().size());
 
         return view;

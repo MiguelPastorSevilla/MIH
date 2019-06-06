@@ -69,6 +69,8 @@ public class CreateEditWorkoutFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
+        exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),new ArrayList<Exercise>());
+        setRetainInstance(true);
     }
 
     @Override
@@ -157,10 +159,19 @@ public class CreateEditWorkoutFragment extends Fragment {
             }
         });
 
-        exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),new ArrayList<Exercise>());
+        Workout workoutReceived = workoutViewModel.getCreateEditWorkout().getValue();
+
+        try{
+            if (workoutReceived.getName() == null){
+                workoutViewModel.getCreatingWorkout().setValue(true);
+            }else{
+                workoutViewModel.getEditingWorkout().setValue(true);
+            }
+        }catch (NullPointerException npe){
+            workoutViewModel.getCreatingWorkout().setValue(true);
+        }
 
         if (workoutViewModel.getEditingWorkout().getValue()){
-                Workout workoutReceived = workoutViewModel.getCreateEditWorkout().getValue();
                 etItemWorkoutNameCreateEdit.setText(workoutReceived.getName());
                 etItemWorkoutDescriptionCreateEdit.setText(workoutReceived.getDescription());
                 etItemWorkoutETCreateEdit.setText(workoutReceived.getEstimatedTimeInMinutes().toString());
@@ -173,7 +184,9 @@ public class CreateEditWorkoutFragment extends Fragment {
                 }
                 exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),(ArrayList<Exercise>)workoutReceived.getExercises());
             }
+
         lvExerciseList.setAdapter(exerciseCreationAdapter);
+
         return v;
     }
 
@@ -236,7 +249,6 @@ public class CreateEditWorkoutFragment extends Fragment {
                     Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()),
                     workoutDifficulty,
                     exerciseCreationAdapter.getExercises());
-                    workoutViewModel.getCreatingWorkout().setValue(false);
         }else{
             workout = workoutViewModel.getCreateEditWorkout().getValue();
             workout.setName(etItemWorkoutNameCreateEdit.getText().toString());
@@ -244,11 +256,12 @@ public class CreateEditWorkoutFragment extends Fragment {
             workout.setEstimatedTimeInMinutes(Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()));
             workout.setDifficulty(workoutDifficulty);
             workout.setExercises(exerciseCreationAdapter.getExercises());
-            workoutViewModel.getEditingWorkout().setValue(false);
         }
 
         workoutViewModel.addWorkoutToList(workout);
         workoutViewModel.getWorkoutListChanged().setValue(true);
         workoutViewModel.getCreateEditWorkout().setValue(null);
+        workoutViewModel.getEditingWorkout().setValue(false);
+        workoutViewModel.getCreatingWorkout().setValue(false);
     }
 }
