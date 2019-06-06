@@ -192,19 +192,19 @@ public class CreateEditWorkoutFragment extends Fragment {
 
     private void trySaveWorkout() {
         Log.i(TAG, "Intento de guardar rutina");
-        if (etItemWorkoutNameCreateEdit.getText().toString().isEmpty()) {
+        if (etItemWorkoutNameCreateEdit.getText().toString().trim().isEmpty()) {
             Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_name), Toast.LENGTH_SHORT
             ).show();
             Log.w(TAG, "Nombre de rutina vacío");
             return;
         }
-        if (etItemWorkoutDescriptionCreateEdit.getText().toString().isEmpty()) {
+        if (etItemWorkoutDescriptionCreateEdit.getText().toString().trim().isEmpty()) {
             Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_description), Toast.LENGTH_SHORT
             ).show();
             Log.w(TAG, "Descripción de rutina vacía ");
             return;
         }
-        if (etItemWorkoutETCreateEdit.getText().toString().isEmpty()) {
+        if (etItemWorkoutETCreateEdit.getText().toString().trim().isEmpty()) {
             Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_et), Toast.LENGTH_SHORT
             ).show();
             Log.w(TAG, "Tiempo estimado de rutina vacío");
