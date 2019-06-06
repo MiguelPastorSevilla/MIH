@@ -6,8 +6,9 @@ import android.util.Patterns;
 public class Utils {
     /**
      * Método para comprobar si el email es válido o no.
+     *
      * @param email email a comprobar
-     * @param TAG RAG para el log
+     * @param TAG   RAG para el log
      * @return boolean
      */
     public static boolean checkEmail(String email, String TAG) {
@@ -23,9 +24,10 @@ public class Utils {
     /**
      * Método para comprobar si dos contraseñas son válidas.
      * Son válidas si tienen mas de 6 carácteres y son iguales.
-     * @param password Contraseña
+     *
+     * @param password         Contraseña
      * @param repeatedPassword Contraseña repetida
-     * @param TAG Tag para Log
+     * @param TAG              Tag para Log
      * @return boolean
      */
     public static boolean checkPasswords(String password, String repeatedPassword, String TAG) {

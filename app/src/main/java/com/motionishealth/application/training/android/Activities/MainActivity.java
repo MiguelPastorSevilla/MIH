@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         workoutViewModel.getSelectedWorkout().observe(this, new Observer<Workout>() {
             @Override
             public void onChanged(@Nullable Workout workout) {
-                if (workout != null){
+                if (workout != null) {
                     callWorkoutDetailFragment();
                     changeTitle();
                 }
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         workoutViewModel.getCreateEditWorkout().observe(this, new Observer<Workout>() {
             @Override
             public void onChanged(@Nullable Workout workout) {
-                if (workout!=null && workoutViewModel.getCreatingWorkout().getValue()==false && workoutViewModel.getEditingWorkout().getValue() == false){
+                if (workout != null && workoutViewModel.getCreatingWorkout().getValue() == false && workoutViewModel.getEditingWorkout().getValue() == false) {
                     callCreateEditFragment();
                     changeTitle();
                 }
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         workoutViewModel.getWorkoutListChanged().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean!=null && aBoolean){
+                if (aBoolean != null && aBoolean) {
                     callWorkoutListFragment();
                     workoutViewModel.setSelectedWorkout(null);
                     changeTitle();
@@ -207,17 +207,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void changeTitle(){
-        if (currentFragment instanceof  WorkoutListFragment){
+    private void changeTitle() {
+        if (currentFragment instanceof WorkoutListFragment) {
             getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_routines));
             title = getSupportActionBar().getTitle().toString();
-        }else if (currentFragment instanceof  HomeFragment){
+        } else if (currentFragment instanceof HomeFragment) {
             getSupportActionBar().setTitle(getResources().getString(R.string.sideMenu_options_home));
             title = getSupportActionBar().getTitle().toString();
-        }else if (currentFragment instanceof  WorkoutDetailFragment){
+        } else if (currentFragment instanceof WorkoutDetailFragment) {
             getSupportActionBar().setTitle(getResources().getString(R.string.fragments_titles_details));
             title = getSupportActionBar().getTitle().toString();
-        }else if (currentFragment instanceof CreateEditWorkoutFragment){
+        } else if (currentFragment instanceof CreateEditWorkoutFragment) {
             getSupportActionBar().setTitle(getResources().getString(R.string.fragments_create_edit_title));
             title = getSupportActionBar().getTitle().toString();
         }
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount()>0 && currentFragment instanceof WorkoutDetailFragment){
+        if (fragmentManager.getBackStackEntryCount() > 0 && currentFragment instanceof WorkoutDetailFragment) {
             workoutViewModel.setSelectedWorkout(null);
             emptyFragmentBackStack();
             currentFragment = fragmentManager.findFragmentByTag(WorkoutListFragment.WORKOUT_FRAGMENT_TAG);
@@ -234,14 +234,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void emptyFragmentBackStack(){
+    private void emptyFragmentBackStack() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
             fragmentManager.popBackStack();
         }
     }
 
-    private void resetViewModelValues(){
+    private void resetViewModelValues() {
         workoutViewModel.setSelectedWorkout(null);
         workoutViewModel.getCreateEditWorkout().setValue(null);
         workoutViewModel.getEditingWorkout().setValue(false);

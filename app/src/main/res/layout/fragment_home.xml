@@ -6,6 +6,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/home_background_image"
     tools:context=".Fragments.HomeFragment">
-
-
 </FrameLayout>

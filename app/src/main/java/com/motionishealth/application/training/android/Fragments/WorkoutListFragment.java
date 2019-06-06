@@ -39,7 +39,6 @@ public class WorkoutListFragment extends Fragment {
     private FirebaseUser user;
 
 
-
     public WorkoutListFragment() {
         // Required empty public constructor
     }
@@ -64,14 +63,14 @@ public class WorkoutListFragment extends Fragment {
         lvWorkoutList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Workout selected = (Workout)lvWorkoutList.getAdapter().getItem(pos);
+                Workout selected = (Workout) lvWorkoutList.getAdapter().getItem(pos);
                 workoutViewModel.setSelectedWorkout(selected);
             }
         });
         lvWorkoutList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Workout selected = (Workout)lvWorkoutList.getAdapter().getItem(pos);
+                Workout selected = (Workout) lvWorkoutList.getAdapter().getItem(pos);
                 workoutViewModel.getCreateEditWorkout().setValue(selected);
                 return true;
             }
@@ -80,7 +79,7 @@ public class WorkoutListFragment extends Fragment {
         workoutViewModel.getWorkoutList().observe(getActivity(), new Observer<List<Workout>>() {
             @Override
             public void onChanged(@Nullable List<Workout> workouts) {
-                if (workouts!=null && workouts.size()>0){
+                if (workouts != null && workouts.size() > 0) {
                     pbLoadingMainList.setVisibility(View.GONE);
                     WorkoutAdapter adapter = new WorkoutAdapter(getContext(), workouts);
                     adapter.setWorkoutViewModel(workoutViewModel);
@@ -92,9 +91,9 @@ public class WorkoutListFragment extends Fragment {
         workoutViewModel.getNoWorkoutsAvailable().observe(getActivity(), new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean!=null && aBoolean){
+                if (aBoolean != null && aBoolean) {
                     pbLoadingMainList.setVisibility(View.GONE);
-                    Toast.makeText(getContext(),getResources().getString(R.string.fragments_workout_list_noWorkouts),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.fragments_workout_list_noWorkouts), Toast.LENGTH_LONG).show();
                     Log.i(TAG, "No hay rutinas, progress bar quitada.");
                 }
             }

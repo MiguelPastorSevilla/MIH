@@ -24,6 +24,7 @@ public class WorkoutAdapter extends BaseAdapter {
     private List<Workout> workouts;
 
     private Context context;
+
     public WorkoutAdapter(Context context, List<Workout> workouts) {
         this.context = context;
         this.workouts = workouts;
@@ -75,15 +76,15 @@ public class WorkoutAdapter extends BaseAdapter {
         btDeleteWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               confirmDeleteItem(position);
+                confirmDeleteItem(position);
             }
         });
 
-        if (currentWorkout.getDifficulty() == 0){
+        if (currentWorkout.getDifficulty() == 0) {
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_easy));
-        }else if (currentWorkout.getDifficulty() == 1){
+        } else if (currentWorkout.getDifficulty() == 1) {
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_medium));
-        }else{
+        } else {
             clItemWorkoutParent.setBackground(context.getResources().getDrawable(R.drawable.item_workout_background_hard));
         }
         tvName.setText("Nombre: " + currentWorkout.getName());
@@ -93,13 +94,12 @@ public class WorkoutAdapter extends BaseAdapter {
         return view;
     }
 
-    private void confirmDeleteItem(final int position){
+    private void confirmDeleteItem(final int position) {
         new AlertDialog.Builder(this.context)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(R.string.fragments_workout_list_deleteDialogTitle)
                 .setMessage(R.string.fragments_workout_list_deleteDialogMessage)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteWorkout(position);
@@ -109,7 +109,7 @@ public class WorkoutAdapter extends BaseAdapter {
                 .show();
     }
 
-    private void deleteWorkout(int position){
-        workoutViewModel.removeWorkoutFromList((Workout)getItem(position));
+    private void deleteWorkout(int position) {
+        workoutViewModel.removeWorkoutFromList((Workout) getItem(position));
     }
 }

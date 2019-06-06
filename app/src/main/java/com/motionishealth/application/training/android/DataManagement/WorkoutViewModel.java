@@ -74,8 +74,8 @@ public class WorkoutViewModel extends ViewModel {
 
     public void getWorkoutsFromFirebaseUser(String uid) {
         userUID = uid;
-        Log.i(TAG,"Cargando datos de rutinas");
-        if (workoutListChanged.getValue()==null){
+        Log.i(TAG, "Cargando datos de rutinas");
+        if (workoutListChanged.getValue() == null) {
             FirebaseDatabase.getInstance().getReference()
                     .child(FirebaseContract.USERS_NODE)
                     .child(userUID)
@@ -83,15 +83,15 @@ public class WorkoutViewModel extends ViewModel {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     ArrayList<Workout> workoutsFromFirebase = new ArrayList<>();
-                    for(DataSnapshot snapshot  : dataSnapshot.getChildren()){
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Workout workout = snapshot.getValue(Workout.class);
                         workout.setKey(snapshot.getKey());
                         workoutsFromFirebase.add(workout);
                     }
                     workoutList.setValue(workoutsFromFirebase);
-                    if (workoutsFromFirebase.size()==0){
+                    if (workoutsFromFirebase.size() == 0) {
                         noWorkoutsAvailable.setValue(true);
-                    }else{
+                    } else {
                         noWorkoutsAvailable.setValue(false);
                     }
                 }
@@ -104,11 +104,11 @@ public class WorkoutViewModel extends ViewModel {
             workoutList.setValue(new ArrayList<Workout>());
         }
         workoutListChanged.setValue(false);
-        Log.i(TAG,"Datos de rutinas cargados");
+        Log.i(TAG, "Datos de rutinas cargados");
     }
 
-    public void addWorkoutToList(Workout workout){
-        if (creatingWorkout.getValue()){
+    public void addWorkoutToList(Workout workout) {
+        if (creatingWorkout.getValue()) {
             List<Workout> workouts = workoutList.getValue();
             database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS);
             String key = database.push().getKey();
@@ -117,7 +117,7 @@ public class WorkoutViewModel extends ViewModel {
             workoutList.setValue(workouts);
             database.child(key).setValue(workout);
             noWorkoutsAvailable.setValue(false);
-        }else{
+        } else {
             List<Workout> workouts = workoutList.getValue();
             database = FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS).child(workout.getKey());
             database.setValue(workout);
@@ -129,10 +129,10 @@ public class WorkoutViewModel extends ViewModel {
 
     }
 
-    public void removeWorkoutFromList(Workout workout){
+    public void removeWorkoutFromList(Workout workout) {
         List<Workout> workouts = workoutList.getValue();
         FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS)
-        .child(workout.getKey()).setValue(null);
+                .child(workout.getKey()).setValue(null);
 
         workouts.remove(workout);
         workoutList.setValue(workouts);

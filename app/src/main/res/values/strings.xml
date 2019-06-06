@@ -29,7 +29,7 @@
     <string name="fragments_create_edit_difficulty_easy">Fácil</string>
     <string name="fragments_create_edit_difficulty_medium">Medio</string>
     <string name="fragments_create_edit_difficulty_hard">Difícil</string>
-    <string name="fragments_create_edit_title">Nueva rutina</string>
+    <string name="fragments_create_edit_title">Creación de rutina</string>
     <string name="fragments_create_edit_title_edit">Modificando rutina</string>
     <string name="fragments_create_edit_error_name">Introduce un nombre de rutina</string>
     <string name="fragments_create_edit_error_description">Introduce una descripción</string>
@@ -37,7 +37,6 @@
     <string name="fragments_create_edit_error_et_zero">No se puede hacer una rutina en 0 minutos. Ojalá.</string>
     <string name="fragments_create_edit_error_difficulty">Selecciona una dificultad</string>
     <string name="fragments_create_edit_error_exercises">Crea al menos un ejercicio</string>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

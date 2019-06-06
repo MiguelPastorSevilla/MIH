@@ -54,10 +54,10 @@ public class ExerciseCreationAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = LayoutInflater.from(this.context).inflate(R.layout.item_workout_create_edit_exercise,viewGroup,false);
+        View v = LayoutInflater.from(this.context).inflate(R.layout.item_workout_create_edit_exercise, viewGroup, false);
 
-        Exercise currentExercise = (Exercise)getItem(i);
-        Log.i(TAG,currentExercise.getName()+" - "+i);
+        Exercise currentExercise = (Exercise) getItem(i);
+        Log.i(TAG, currentExercise.getName() + " - " + i);
         final int position = i;
 
         TextView tvItemExerciseNameCreateEdit = v.findViewById(R.id.tvItemExerciseNameCreateEdit);
@@ -78,7 +78,7 @@ public class ExerciseCreationAdapter extends BaseAdapter {
         return v;
     }
 
-    private void removeItem(int position){
+    private void removeItem(int position) {
         exercises.remove(position);
         notifyDataSetChanged();
     }

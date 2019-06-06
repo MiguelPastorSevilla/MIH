@@ -69,7 +69,7 @@ public class CreateEditWorkoutFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         workoutViewModel = ViewModelProviders.of(getActivity()).get(WorkoutViewModel.class);
-        exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),new ArrayList<Exercise>());
+        exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(), new ArrayList<Exercise>());
         setRetainInstance(true);
     }
 
@@ -119,7 +119,7 @@ public class CreateEditWorkoutFragment extends Fragment {
         etItemExerciseSetsCreateEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     btItemExerciseAddExercise.callOnClick();
                 }
                 return false;
@@ -132,16 +132,16 @@ public class CreateEditWorkoutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String exerciseName = etItemExerciseNameCreateEdit.getText().toString();
-                Long exerciseReps = (long)0;
-                Long exerciseSets = (long)0;
+                Long exerciseReps = (long) 0;
+                Long exerciseSets = (long) 0;
                 try {
                     exerciseReps = Long.parseLong(etItemExerciseRepsCreateEdit.getText().toString());
                     exerciseSets = Long.parseLong(etItemExerciseSetsCreateEdit.getText().toString());
-                }catch (Exception e){
-                    Log.e(TAG,e.getMessage());
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
-                if (!exerciseName.isEmpty()){
-                    Exercise exercise = new Exercise(exerciseName,exerciseReps,exerciseSets);
+                if (!exerciseName.isEmpty()) {
+                    Exercise exercise = new Exercise(exerciseName, exerciseReps, exerciseSets);
                     exerciseCreationAdapter.getExercises().add(exercise);
                     exerciseCreationAdapter.notifyDataSetChanged();
                     etItemExerciseNameCreateEdit.setText("");
@@ -161,29 +161,29 @@ public class CreateEditWorkoutFragment extends Fragment {
 
         Workout workoutReceived = workoutViewModel.getCreateEditWorkout().getValue();
 
-        try{
-            if (workoutReceived.getName() == null){
+        try {
+            if (workoutReceived.getName() == null) {
                 workoutViewModel.getCreatingWorkout().setValue(true);
-            }else{
+            } else {
                 workoutViewModel.getEditingWorkout().setValue(true);
             }
-        }catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             workoutViewModel.getCreatingWorkout().setValue(true);
         }
 
-        if (workoutViewModel.getEditingWorkout().getValue()){
-                etItemWorkoutNameCreateEdit.setText(workoutReceived.getName());
-                etItemWorkoutDescriptionCreateEdit.setText(workoutReceived.getDescription());
-                etItemWorkoutETCreateEdit.setText(workoutReceived.getEstimatedTimeInMinutes().toString());
-                if (workoutReceived.getDifficulty() == (long)0){
-                    rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyEasy);
-                }else if (workoutReceived.getDifficulty() == (long)1){
-                    rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyMedium);
-                }else{
-                    rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyHard);
-                }
-                exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(),(ArrayList<Exercise>)workoutReceived.getExercises());
+        if (workoutViewModel.getEditingWorkout().getValue()) {
+            etItemWorkoutNameCreateEdit.setText(workoutReceived.getName());
+            etItemWorkoutDescriptionCreateEdit.setText(workoutReceived.getDescription());
+            etItemWorkoutETCreateEdit.setText(workoutReceived.getEstimatedTimeInMinutes().toString());
+            if (workoutReceived.getDifficulty() == (long) 0) {
+                rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyEasy);
+            } else if (workoutReceived.getDifficulty() == (long) 1) {
+                rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyMedium);
+            } else {
+                rgItemWorkoutDifficulty.check(R.id.rbItemWorkoutDifficultyHard);
             }
+            exerciseCreationAdapter = new ExerciseCreationAdapter(getContext(), (ArrayList<Exercise>) workoutReceived.getExercises());
+        }
 
         lvExerciseList.setAdapter(exerciseCreationAdapter);
 
@@ -191,65 +191,65 @@ public class CreateEditWorkoutFragment extends Fragment {
     }
 
     private void trySaveWorkout() {
-        Log.i(TAG,"Intento de guardar rutina");
-        if (etItemWorkoutNameCreateEdit.getText().toString().isEmpty()){
-            Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_name),Toast.LENGTH_SHORT
+        Log.i(TAG, "Intento de guardar rutina");
+        if (etItemWorkoutNameCreateEdit.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_name), Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG,"Nombre de rutina vacío");
+            Log.w(TAG, "Nombre de rutina vacío");
             return;
         }
-        if (etItemWorkoutDescriptionCreateEdit.getText().toString().isEmpty()){
-            Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_description),Toast.LENGTH_SHORT
+        if (etItemWorkoutDescriptionCreateEdit.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_description), Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG,"Descripción de rutina vacía ");
+            Log.w(TAG, "Descripción de rutina vacía ");
             return;
         }
-        if (etItemWorkoutETCreateEdit.getText().toString().isEmpty()){
-            Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_et),Toast.LENGTH_SHORT
+        if (etItemWorkoutETCreateEdit.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_et), Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG,"Tiempo estimado de rutina vacío");
+            Log.w(TAG, "Tiempo estimado de rutina vacío");
             return;
         }
-        if (Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()) <= 0){
-            Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_et_zero),Toast.LENGTH_SHORT
+        if (Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()) <= 0) {
+            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_et_zero), Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG,"Tiempo estimado de rutina es 0");
+            Log.w(TAG, "Tiempo estimado de rutina es 0");
             return;
         }
         Long workoutDifficulty;
-        switch (rgItemWorkoutDifficulty.getCheckedRadioButtonId()){
+        switch (rgItemWorkoutDifficulty.getCheckedRadioButtonId()) {
             case R.id.rbItemWorkoutDifficultyEasy:
-                workoutDifficulty = (long)0;
+                workoutDifficulty = (long) 0;
                 break;
             case R.id.rbItemWorkoutDifficultyMedium:
-                workoutDifficulty = (long)1;
+                workoutDifficulty = (long) 1;
                 break;
             case R.id.rbItemWorkoutDifficultyHard:
-                workoutDifficulty = (long)2;
+                workoutDifficulty = (long) 2;
                 break;
             default:
-                Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_difficulty),Toast.LENGTH_SHORT
+                Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_difficulty), Toast.LENGTH_SHORT
                 ).show();
-                Log.w(TAG,"Ninguna dificultad seleccionada");
+                Log.w(TAG, "Ninguna dificultad seleccionada");
                 return;
         }
 
-        if (exerciseCreationAdapter.getExercises().size() <= 0){
-            Toast.makeText(getContext(),getResources().getString(R.string.fragments_create_edit_error_exercises),Toast.LENGTH_SHORT
+        if (exerciseCreationAdapter.getExercises().size() <= 0) {
+            Toast.makeText(getContext(), getResources().getString(R.string.fragments_create_edit_error_exercises), Toast.LENGTH_SHORT
             ).show();
-            Log.w(TAG,"Ningun ejercicio creado");
+            Log.w(TAG, "Ningun ejercicio creado");
             return;
         }
 
         Workout workout;
 
-        if (workoutViewModel.getCreatingWorkout().getValue()){
+        if (workoutViewModel.getCreatingWorkout().getValue()) {
             workout = new Workout(etItemWorkoutNameCreateEdit.getText().toString(),
                     etItemWorkoutDescriptionCreateEdit.getText().toString(),
                     Long.parseLong(etItemWorkoutETCreateEdit.getText().toString()),
                     workoutDifficulty,
                     exerciseCreationAdapter.getExercises());
-        }else{
+        } else {
             workout = workoutViewModel.getCreateEditWorkout().getValue();
             workout.setName(etItemWorkoutNameCreateEdit.getText().toString());
             workout.setDescription(etItemWorkoutDescriptionCreateEdit.getText().toString());

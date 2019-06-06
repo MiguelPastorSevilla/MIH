@@ -4,9 +4,9 @@
     android:id="@+id/svCreateEditWorkoutFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.CreateEditWorkoutFragment"
     android:orientation="vertical"
-    android:weightSum="2">
+    android:weightSum="2"
+    tools:context=".Fragments.CreateEditWorkoutFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,11 +38,11 @@
                     android:id="@+id/etItemWorkoutNameCreateEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/fragments_create_edit_name"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:imeOptions="actionNext"
-                    android:nextFocusForward="@id/etItemWorkoutDescriptionCreateEdit"
-                    android:hint="@string/fragments_create_edit_name"/>
+                    android:nextFocusForward="@id/etItemWorkoutDescriptionCreateEdit" />
             </LinearLayout>
 
             <LinearLayout
@@ -64,11 +64,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/item_generic_border"
                     android:gravity="top"
+                    android:hint="@string/fragments_create_edit_description"
                     android:inputType="textMultiLine"
                     android:minLines="3"
-                    android:padding="3dp"
-                    android:hint="@string/fragments_create_edit_description"
-                    android:nextFocusForward="@id/etItemWorkoutETCreateEdit"/>
+                    android:nextFocusForward="@id/etItemWorkoutETCreateEdit"
+                    android:padding="3dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -119,8 +119,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/fragments_create_edit_difficulty_easy"
-                        android:checked="true"/>
+                        android:checked="true"
+                        android:text="@string/fragments_create_edit_difficulty_easy" />
 
                     <RadioButton
                         android:id="@+id/rbItemWorkoutDifficultyMedium"
@@ -190,30 +190,30 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:inputType="text"
-                    android:textAlignment="center"
-                    android:maxLines="3"
                     android:imeOptions="actionNext"
-                    android:nextFocusForward="@id/etItemExerciseRepsCreateEdit"/>
+                    android:inputType="text"
+                    android:maxLines="3"
+                    android:nextFocusForward="@id/etItemExerciseRepsCreateEdit"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/etItemExerciseRepsCreateEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:inputType="number"
-                    android:textAlignment="center"
                     android:imeOptions="actionNext"
-                    android:nextFocusForward="@id/etItemExerciseSetsCreateEdit"/>
+                    android:inputType="number"
+                    android:nextFocusForward="@id/etItemExerciseSetsCreateEdit"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/etItemExerciseSetsCreateEdit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:imeOptions="actionDone"
                     android:inputType="number"
-                    android:textAlignment="center"
-                    android:imeOptions="actionDone"/>
+                    android:textAlignment="center" />
 
                 <ImageButton
                     android:id="@+id/btItemExerciseAddExercise"
@@ -239,22 +239,19 @@
             android:id="@+id/lvExerciseCreationList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_workout_create_edit_exercise"
             android:layout_margin="6dp"
-            android:background="@drawable/item_generic_border">
-        </ListView>
+            android:background="@drawable/item_generic_border"
+            tools:listitem="@layout/item_workout_create_edit_exercise"></ListView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabSaveWorkout"
-            android:layout_margin="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_save_workout"/>
+            android:layout_margin="6dp"
+            android:src="@drawable/ic_save_workout" />
 
     </FrameLayout>
-
-
 
 
 </LinearLayout>

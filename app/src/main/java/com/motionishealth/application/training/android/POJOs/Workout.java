@@ -10,6 +10,7 @@ public class Workout {
     private Long estimatedTimeInMinutes;
     private Long difficulty;
     private List<Exercise> exercises;
+
     public Workout() {
     }
 
