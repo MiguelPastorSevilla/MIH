@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.motionishealth.application.training.android.DataManagement.WorkoutViewModel;
 import com.motionishealth.application.training.android.Fragments.CreateEditWorkoutFragment;
 import com.motionishealth.application.training.android.Fragments.HomeFragment;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         dlSideMenu = findViewById(R.id.dlSideMenu);
         flFragmentContainer = findViewById(R.id.flFragmentContainer);
