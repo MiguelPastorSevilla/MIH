@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         dlSideMenu = findViewById(R.id.dlSideMenu);
         flFragmentContainer = findViewById(R.id.flFragmentContainer);
 
