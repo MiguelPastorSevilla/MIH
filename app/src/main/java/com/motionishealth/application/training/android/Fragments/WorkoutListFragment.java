@@ -93,7 +93,9 @@ public class WorkoutListFragment extends Fragment {
             public void onChanged(@Nullable Boolean aBoolean) {
                 if (aBoolean != null && aBoolean) {
                     pbLoadingMainList.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), getResources().getString(R.string.fragments_workout_list_noWorkouts), Toast.LENGTH_LONG).show();
+                    if (WorkoutListFragment.this.isAdded()){
+                        Toast.makeText(getContext(), getResources().getString(R.string.fragments_workout_list_noWorkouts), Toast.LENGTH_LONG).show();
+                    }
                     Log.i(TAG, "No hay rutinas, progress bar quitada.");
                 }
             }
