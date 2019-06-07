@@ -130,6 +130,7 @@ public class WorkoutAdapter extends BaseAdapter {
      */
     private void deleteWorkout(int position) {
         workoutViewModel.removeWorkoutFromList((Workout) getItem(position));
+        //Si la lista se queda vacia, acutalizamos la variable del modelo que indica que no hay rutinas.
         if (workouts.size()==0){
             workoutViewModel.getNoWorkoutsAvailable().setValue(true);
         }

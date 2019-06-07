@@ -15,6 +15,7 @@ import com.motionishealth.application.training.android.R;
  */
 public class HomeFragment extends Fragment {
 
+    //Tag
     public static final String HOME_FRAGMENT_TAG = "HomeFragment";
 
     public HomeFragment() {
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Carga del fragment principal.
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 

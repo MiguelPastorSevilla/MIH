@@ -3,8 +3,11 @@ package com.motionishealth.application.training.android.POJOs;
 import java.util.Objects;
 
 public class Exercise {
+    //Nombre del ejercicio
     private String name;
+    //Número de repeticiones
     private Long reps;
+    //Número de series.
     private Long sets;
 
     public Exercise() {

@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             pbLoginLoading.setVisibility(View.INVISIBLE);
-                            actualizaPreferencias();
+                            updatePreferences();
                             Log.i(TAG, "Login completado");
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void actualizaPreferencias() {
+    private void updatePreferences() {
         //Cambio de las preferencias en funcion del checkBox.
         SharedPreferences.Editor editor = preferences.edit();
         if (cbRememberAccount.isChecked()) {

@@ -122,7 +122,7 @@ public class WorkoutViewModel extends ViewModel {
             //excepciones de tipo "nullPointerException".
             workoutList.setValue(new ArrayList<Workout>());
         }
-        ///Asignamos a la variable de modelo "Lista Cambiada".
+        ///Inicializamos la variable de modelo "Lista Cambiada" para que ya no sea nula.
         workoutListChanged.setValue(false);
         Log.i(TAG, "Datos de rutinas cargados");
     }

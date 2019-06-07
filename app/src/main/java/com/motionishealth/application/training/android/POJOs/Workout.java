@@ -4,11 +4,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class Workout {
+    //Clave de la rutina
     private String key;
+    //Nombre de la rutina
     private String name;
+    //Descripción de la rutina
     private String description;
+    //Tiempo estimado de duración de la rutina
     private Long estimatedTimeInMinutes;
+    //Dificultad de la rutina
     private Long difficulty;
+    //Lista de ejercicios de la rutina
     private List<Exercise> exercises;
 
     public Workout() {
@@ -70,6 +76,7 @@ public class Workout {
         this.key = key;
     }
 
+    //Comparamos la rutina por la clave que tenga únicamente.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
