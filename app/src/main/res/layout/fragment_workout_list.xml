@@ -4,7 +4,8 @@
     android:id="@+id/frWorkoutListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.WorkoutListFragment">
+    tools:context=".Fragments.WorkoutListFragment"
+    android:background="?android:windowBackground">
 
 
     <ProgressBar
