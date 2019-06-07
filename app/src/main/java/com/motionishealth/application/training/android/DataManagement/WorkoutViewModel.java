@@ -176,11 +176,18 @@ public class WorkoutViewModel extends ViewModel {
 
     }
 
+    /**
+     * Método para borrar una rutina de la lista.
+     * @param workout
+     */
     public void removeWorkoutFromList(Workout workout) {
         List<Workout> workouts = workoutList.getValue();
-        FirebaseDatabase.getInstance().getReference().child(FirebaseContract.USERS_NODE).child(userUID).child(FirebaseContract.USER_WORKOUTS)
+        //Para borrar una rutina de la base de datos, le asignamos valor nulo. Así funciona firebase.
+        FirebaseDatabase.getInstance().getReference()
+                .child(FirebaseContract.USERS_NODE)
+                .child(userUID)
+                .child(FirebaseContract.USER_WORKOUTS)
                 .child(workout.getKey()).setValue(null);
-
         workouts.remove(workout);
         workoutList.setValue(workouts);
     }

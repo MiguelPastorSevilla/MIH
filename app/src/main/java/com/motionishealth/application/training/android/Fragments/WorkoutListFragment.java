@@ -76,6 +76,7 @@ public class WorkoutListFragment extends Fragment {
             }
         });
         pbLoadingMainList = v.findViewById(R.id.pbLoadingMainList);
+
         workoutViewModel.getWorkoutList().observe(getActivity(), new Observer<List<Workout>>() {
             @Override
             public void onChanged(@Nullable List<Workout> workouts) {
